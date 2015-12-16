@@ -1,0 +1,49 @@
+<?php echo $this->doctype(); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
+<head profile="http://gmpg.org/xfn/11">
+<title>Golden compass english class</title>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="imagetoolbar" content="no" />
+    
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/styles/layout.css');?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/styles/code.css');?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/styles/forms.css');?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/templatemo_style.css');?>
+    
+    <?php echo $this->headTitle();?>
+    <?php echo $this ->headMeta();?>
+    <?php $md = "/work/public/modal/js/"; ?>
+    <?php $js = "/work/public/js/"; ?>
+    
+    <!--<script type='text/javascript' src="https://gist.github.com/makeusabrew/6327194.js"></script>-->
+    <script type='text/javascript' src='<?php echo $js;?>countdown.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>countdown.min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>jquery.min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>jquery.scrollTo-min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>jquery.localscroll-min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>bootstrap-tooltip.js'></script>
+
+    <script src="<?php echo $js; ?>jquery.js"></script> 
+
+    <script src="/work/public/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/work/public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/work/public/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <script type='text/javascript' src='<?php echo $md;?>bootstrap-modal.js'></script>
+    
+    <?php $editor = '/work/public/ckeditor'; ?>
+    <script type="text/javascript" src="<?php echo $editor; ?>/ckeditor.js"></script>
+    <script type="text/javascript" src="<?php echo $editor; ?>/adapters/jquery.js"></script>
+    <script type="text/javascript">
+     $(function() {
+                $('#textcontent' ).ckeditor();
+            });
+     var baseUrl = "http://10.0.32.126/work/public";
+    </script>
+
+</head>
+<body id = "topAut">
+<?php echo $this->layout()->content; ?> 
+</body>
+</html>

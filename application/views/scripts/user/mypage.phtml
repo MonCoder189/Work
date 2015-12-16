@@ -1,0 +1,40 @@
+<?php $this->layout()->setLayout('user'); ?>
+<?php 
+     $uid = $this -> dugaar;
+     $users = new Model_DbTable_Users();
+     $user = $users -> fetchAll($users -> select() -> where('id = '.$uid));
+     foreach ($user as $val) {
+     	$username = $val["username"];
+     	$lastname = $val["lastname"];
+     	$firstname = $val["firstname"];
+     	$country = $val["country"];
+     	$uri = $val["uri"];
+     	$email = $val["E-mail"];
+     	$date = $val["date"];
+     }
+?>
+<div class = "userbody">
+	<div class = "user_header">
+          <div class = "user_image">
+               <a href="user/updateimage"><img src ="<?php echo $this -> baseUrl()."/".$uri ?>" style="height: 100px;" style="width: 100px;" alt="oldsongui!"/></a>
+          </div>
+          <div class = "dis10"></div>
+          <div class = "dis10"></div>
+          <div class = "dis10"></div>
+          <div>
+            <p>Миний хийж чадах үйлдлүүд</p>
+            <a class="btn btn-warning" href="/dun/public/bukhchuud/add">Бөх бүртгэх</a>
+            <div class = "dis10"></div>
+            <a class="btn btn-warning" href="/dun/public/aimag/add">Аймаг нэмэх</a>
+            <div class = "dis10"></div>
+            <a class="btn btn-warning" href="/dun/public/sum/add">Сум нэмэх</a>
+            <div class = "dis10"></div>
+            <a class="btn btn-warning" href="/dun/public/tsol/add">Цол нэмэх</a>            
+            <div class = "dis10"></div>
+            <a class="btn btn-warning" href="/dun/public/index/add">Мэдээ нэмэх</a> 
+            <a class="btn btn-warning" href="/dun/public/bukhchuud/add">Бөх нэмэх</a>
+          </div>
+     </div>
+</div>
+
+

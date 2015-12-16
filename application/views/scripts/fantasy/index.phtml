@@ -1,0 +1,84 @@
+	<?php $this->layout()->setLayout('fantasy'); ?>
+
+	<?php
+	        $role = Zend_Registry::get('role');
+	        if ($role == 'admins' || $role == 'moderators') {
+	        		echo '<div class = "fantasy-index">
+	        				Нийтлэл оруулах
+						  <div class = "comment-body">
+						  		<div class = "comment-textarea">
+									<textarea id = "text" style = "overflow: hidden; line-height: 18px; height: 43px; width: 100%;border:none">
+									</textarea>
+								</div>
+							</div>
+							<div class = "comment-footer">
+								<span style="font-weight: bold;">Хэрэглэгч та нийтлэл оруулна уу</span>
+								<div class = "comment-footer-right">
+									<div class="btn-group">
+								  		<button onclick = "submitpost()" class="btn btn-info btn-xs" type="button" data-toggle="modal" data-target="#myModal"><span style="font-weight: bold;">Илгээх</span></button>
+									</div>
+								</div>
+							</div>
+
+						</div>';   
+	        }
+	?>
+
+	<?php
+			$cnt = 0;
+	        $val = 0;
+	        $bukhuud = array();
+	        $bukhs = new Model_DbTable_Users();
+	        $bukh = $bukhs -> fetchAll($bukhs -> select());
+	        foreach ($bukh as $key => $value) {
+	        	$bukhuud[$value['id']] = $value['username'];
+	        }
+	        foreach ($this -> medee as $val) {
+	        	echo '<div class = "fantasy-index-body">
+	        			<div>
+	        				<h2 style = "color: #428bca;font-family: helios">'.$val['title'].'</h2>
+	        				<div>';
+				                $content  = $val['content'];
+				                $convert = "";
+				                $len = strlen($content); 
+				                for($i=0; $i < $len; $i++) {
+				                    if($content[$i] == '&' and $content[$i+1] == 'q' and $content[$i+2] == 'u' and $content[$i+3] == 'o' and $content[$i+4] == 't' and $content[$i+5] == ';') 
+				                    {
+				                        $i=$i+5; $convert.="\"";
+				                    }
+				                    else 
+				                    {
+				                        $convert.=$content[$i];
+				                    }
+				                }
+				                $content = $convert;
+	        				echo $content;
+	        				echo '</div>
+	        			</div>
+	        			<div class = "dis10"></div>
+	        			<div><span style = "font-weight:bold; color: #428bca">Нийтэлсэн : '.$bukhuud[$val['uid']].' '.$val['date'].' <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width=100&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80&amp;appId=796259283733367" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:80px;" allowTransparency="true"></iframe></span></div>
+	        		</div>';
+	        		echo '<div class = "dis10"></div>';
+		}
+	    ?> 
+<?php echo $this->paginationControl($this->medee, 'Sliding', 'paginationFile.phtml'); ?>
+
+
+<script type = "text/javascript">
+	function submitpost() {
+		var text = $("#text").val();
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxpostsubmit',
+	            async: true,
+	            data: { uri: uri, text: text },
+	            success: function(res) {
+	            	alert('yes');
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });	
+	}
+</script>

@@ -1,0 +1,84 @@
+
+#header {
+	margin-left: 9%;
+	text-align: center;
+	padding: 10px;
+	float: left;
+	width: 80%;
+	height: 60px;
+	border: 1px double black;
+}
+
+#menu {
+	margin-top: 10px;
+	margin-left: 9%;
+	padding: 5px;
+	float: left;
+	width: 20%;
+	height: auto;
+	border: 1px double black;
+}
+
+#content {
+	margin-top: 10px;
+	float: left;
+	padding: 5px;
+	width: 59.85%;
+	height: auto;
+	border: 1px double black;
+}
+/************************************************************
+
+Code Examples
+
+*************************************************************/
+
+.codeExample {
+	background-color: #EFEFEF;
+	padding: 20px;
+	border: 1px solid #CCCCCC;
+	font-family: "Courier New", Courier, mono;
+	font-size: 12px;
+	color: #03F;
+	display: block;
+	overflow: auto;
+	width: 80%;
+}
+
+.grey {
+	color: #666;
+}
+.pink {
+	color: #F0F;
+}
+.green {
+	color: #090;
+}
+.red {
+	color: #C00;
+}
+
+.calloutWhite {
+	background-color: #FFFFFF;
+}
+
+.showcaseWindow {
+	background-color: #B5B5B5;
+	height: 316px;
+	margin-bottom: 20px;
+	z-index: 2;
+}
+
+.addthis_positioner {
+	height: 200px;
+	width: 60px;
+	top: 30px;
+	position: relative;
+	overflow: visible;
+	right: 10px;
+}
+
+.countdownBigCode {
+	width: 95%;
+	height: 400px;
+}

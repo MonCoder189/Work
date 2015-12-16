@@ -1,0 +1,49 @@
+<?php $this->layout()->setLayout('user'); ?>
+
+<div class="user_barildaan">
+	<table  class="table table-bordered">
+		<?php 
+
+			foreach ($this->bukhvs as $key => $value) {
+				$barildaan_name = 0;
+				$barildaan_date = 0;
+				if(($value['bukh1_id'] == $this->b1_id) && ($value['bukh2_id'] == $this->b2_id))
+				{
+					foreach ($this->barildaan as $key => $val) {
+						if($val['id'] == $value['barildaan_id']) 
+						{	
+							$barildaan_date = $val['date'];
+							$barildaan_name = $val['name'];
+						}
+					}
+					if($value['davsanbukh_id'] == $value['bukh1_id'])
+					{
+						echo '<tr><td>'.$barildaan_date.'</td><td>'.$barildaan_name.'</td><td>'.$value['davaa_num'].' - н даваа</td><td>'.$value['bukh1_lname'].' '.$value['bukh1_fname'].'</td><td><img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/unasan.gif" height="18px" width="18px" alt="oldsongui!"></img></td><td>'.$value['mekh'].'</td><td>'.$value['bukh2_lname'].' '.$value['bukh2_fname'].'</td><td><img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/davsan.gif" height="18px" width="18px" alt="oldsongui!"></img></td></tr>';
+					}
+					else
+					{
+						echo '<tr><td>'.$barildaan_date.'</td><td>'.$barildaan_name.'</td><td>'.$value['davaa_num'].' - н даваа</td><td>'.$value['bukh1_lname'].' '.$value['bukh1_fname'].'</td><td><img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/davsan.gif" height="18px" width="18px" alt="oldsongui!"></img></td><td>'.$value['mekh'].'</td><td>'.$value['bukh2_lname'].' '.$value['bukh2_fname'].'</td><td><img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/unasan.gif" height="18px" width="18px" alt="oldsongui!"></img></td></tr>';
+					}
+				}
+				if(($value['bukh2_id'] == $this->b1_id) && ($value['bukh1_id'] == $this->b2_id))
+				{
+					foreach ($this->barildaan as $key => $val) {
+						if($val['id'] == $value['barildaan_id']) 
+						{	
+							$barildaan_date = $val['date'];
+							$barildaan_name = $val['name'];
+						}
+					}
+					if($value['davsanbukh_id'] == $value['bukh1_id'])
+					{
+						echo '<tr><td>'.$barildaan_date.'</td><td>'.$barildaan_name.'</td><td>'.$value['davaa_num'].' - н даваа</td><td>'.$value['bukh1_lname'].' '.$value['bukh1_fname'].'</td><td><img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/unasan.gif" height="18px" width="18px" alt="oldsongui!"></img></td><td>'.$value['mekh'].'</td><td>'.$value['bukh2_lname'].' '.$value['bukh2_fname'].'</td><td><img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/davsan.gif" height="18px" width="18px" alt="oldsongui!"></img></td></tr>';
+					}
+					else
+					{
+						echo '<tr><td>'.$barildaan_date.'</td><td>'.$barildaan_name.'</td><td>'.$value['davaa_num'].' - н даваа</td><td>'.$value['bukh1_lname'].' '.$value['bukh1_fname'].'</td><td><img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/davsan.gif" height="18px" width="18px" alt="oldsongui!"></img></td><td>'.$value['mekh'].'</td><td>'.$value['bukh2_lname'].' '.$value['bukh2_fname'].'</td><td><img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/unasan.gif" height="18px" width="18px" alt="oldsongui!"></img></td></tr>';
+					}					
+				}
+			}
+		?>
+	</table>
+</div>

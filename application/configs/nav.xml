@@ -1,0 +1,47 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<config>
+	<nav>
+		<index>
+			<Label>Нүүр хуудас</Label>
+			<controller>index</controller>
+			<action>index</action>
+			<resource>index</resource>
+			<privilege>index</privilege>
+		</index>
+		<education>
+			<Label>Шинжлэх ухаан</Label>
+			<controller>education</controller>
+			<action>index</action>
+			<resource>education</resource>
+			<privilege>index</privilege>
+		</education>
+		<bukhchuud>
+			<Label>Бөхчүүд</Label>
+			<controller>bukhchuud</controller>
+			<action>index</action>
+			<resource>bukhchuud</resource>
+			<privilege>index</privilege>
+		</bukhchuud>
+		<sport>
+			<Label>Спорт</Label>
+			<controller>sport</controller>
+			<action>index</action>
+			<resource>sport</resource>
+			<privilege>index</privilege>
+		</sport>
+		<niitlel>
+			<Label>Нийтлэл</Label>
+			<controller>niitlel</controller>
+			<action>index</action>
+			<resource>niitlel</resource>
+			<privilege>index</privilege>
+		</niitlel>
+		<other>
+			<Label>Бусад</Label>
+			<controller>other</controller>
+			<action>index</action>
+			<resource>other</resource>
+			<privilege>index</privilege>
+		</other>
+	</nav>
+</config>

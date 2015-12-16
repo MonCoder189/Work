@@ -1,0 +1,29 @@
+	 <?php
+	        $role = Zend_Registry::get('role');
+	        if ($role == 'admins' || $role == 'moderators') {
+	            echo '<div class = "rt"><a class="glyphicon glyphicon-plus-sign" href = "'.$this -> baseUrl().'/sum/add"></a></div>';
+	        }
+	?>
+    <div class = "dis10"></div>
+    <div class = "dis11">
+    	Монгол улсын аймаг сумдууд
+
+
+	    <?php
+	        foreach ($this -> aimag as $val) {
+	        	echo '<table  class="table table-bordered">'; $str  ="аймаг";
+	        	echo '<tr class = "success"><td><span style = "font-weigth : bold">'.$val['name'].' '.$str.'</td></tr>';
+	        	$sums = new Model_DbTable_Sum();
+        		$sum = $sums -> fetchAll($sums -> select() -> where('aimagid = '.$val['id']));
+        		foreach ($sum as $ret) {
+	                echo '<tr><td>'.$ret['name'].'<div class = "rt">
+					<a href="'.$this -> baseUrl().'/aimag/edit/id/'.$ret['id'].'"><span class="glyphicon glyphicon-edit"></span></a>&nbsp&nbsp
+					<a href="'.$this -> baseUrl().'/sum/remove/id/'.$ret['id'].'"><span class="glyphicon glyphicon-remove"></span></a>
+	                </div></td></tr>'; 
+	            }     
+	            echo '</table>';
+	        	echo '<div class = "dis10"></div>';
+	        } 
+	    ?> 
+   
+	</div>

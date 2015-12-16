@@ -1,0 +1,140 @@
+    <div id = "deleteb"></div>
+    <table  class="table table-bordered">
+	    <?php
+	    	echo '<tr class = "success"><td><span style = "font-weight: bold">Монголын үндэсний бөхийн үе үеийн алдар цуутай бөхчүүд</span><div id = "sbukh" class = "rt123"><img onclick = "searchbukh()" src ="'.$this -> baseUrl().'/images/control.png"></img></div></td></tr>';
+	    	$role = Zend_Registry::get('role');
+
+	        $val = 0;
+	        $aimagname = "";
+	        $sumname = "";
+	        $amg = array();
+	        foreach ($this -> aimag as $key => $value) {
+	        	$amg[$value['id']] = $value['name'];
+	        }
+	        $sm = "";
+	        foreach ($this -> sum as $key => $value) {
+	        	$sm[$value['id']] = $value['name'];
+	        }
+	        $tsolname = "";
+	        foreach ($this->tsol as $key => $value) {
+	        	$tsolname[$value['id']] = $value['name'];
+	        }
+	        if($role == 'moderators' || $role == 'admins')
+	        {
+		        foreach ($this -> bukh as $val) {
+		                echo '<tr><td>
+		                <img class="img-thumbnail" src ="'.$this -> baseUrl().'/'.$val['uri'].'" height="50px" width="50px" alt="oldsongui!"></img>
+		                &nbsp&nbsp&nbsp&nbsp
+		                <span style = "color:green;font-weight:bold">'.$val['lname'].' '.$val['fname'].' '.$tsolname[$val['tsolid']].' </span>';
+		                echo '<span>('.$amg[$val['aimagid']].' '.$sm[$val['sumid']].')</span>';
+		                echo '<div class = "rt22"><a href="'.$this -> baseUrl().'/bukhchuud/page/id/'.$val['id'].'">Дэлгэрэнгүй </a><a href = "'.$this -> baseUrl().'/bukhchuud/edit/id/'.$val['id'].'"><span class="glyphicon glyphicon-edit"></span></a>&nbsp<span id = "'.$val['id'].'" onclick = "deletebukh(this.id)" style = "color: #428bca" class="glyphicon glyphicon-remove"></span></a>';
+		                echo '</td></tr>';
+		        }     
+	        }   
+	        else
+	        {
+		        foreach ($this -> bukh as $val) {
+		                echo '<tr><td>
+		                <img class="img-thumbnail" src ="'.$this -> baseUrl().'/'.$val['uri'].'" height="50px" width="50px" alt="oldsongui!"></img>
+		                &nbsp&nbsp&nbsp&nbsp
+		                <span style = "color:green;font-weight:bold">'.$val['lname'].' '.$val['fname'].' '.$tsolname[$val['tsolid']].' </span>';
+		                echo '<span>('.$amg[$val['aimagid']].' '.$sm[$val['sumid']].')</span>';
+		                echo '<div class = "rt22"><a href="'.$this -> baseUrl().'/bukhchuud/page/id/'.$val['id'].'">Дэлгэрэнгүй</a></div>';
+		                echo '</td></tr>';
+		        }	        	
+	        }
+	    ?> 
+    </table>
+<div class="alert alert-success alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Сайн байна уу!</strong> Монголын үндэсний бөхийн үе үеийн алдар цуутай бөхчүүд.
+</div>
+
+
+<script type="text/javascript">
+	function searchbukh(x) {
+		var id = x;
+		$.ajax({
+	        type: 'POST',
+	        dataType: 'json',
+	        url: baseUrl+'/bukhchuud/ajaxbukhsearch',
+	        async: true,
+	        data: { id: id },
+	        success: function(res) {
+
+	        	content = '';
+	        	content += '<select id = "searchbukh15" class = "form-control" style = "width: 180px; height : 32px">';
+	        	
+	        	content += '<option value = "0">Бүх бөхчүүд</option>';
+
+	        	len = res.length;
+	        	for(i = 0; i < len; i++)
+	        	{
+	        		content += '<option value = "'+res[i].id+'">'+res[i].name+'</option>';
+	        	}
+	        	content += '</select>';
+	            $("#sbukh").html(content);
+	        },
+	        error: function() {
+	        	alert('no');
+	        }
+		});
+	}
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#searchbukh15").change(function(){
+			//id = $(this).val();
+			alert('yes');
+		})
+	});
+</script>
+
+<script type = "text/javascript">
+	function deletebukh(id)
+	{
+		$("#deleteb").data("bukhdugaar", id);
+		$("#bukh_result").modal('show');	
+	}
+</script>
+
+<script type = "text/javascript">
+	function deletebukh100()
+	{
+		var id = $("#deleteb").data("bukhdugaar");
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/bukhchuud/ajaxdeletebukh',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	alert('yes');
+	            },
+	            error: function() {
+	            	alert('no1');
+	            }
+	    	});
+	}
+</script>
+
+<div id = "bukh_result" class="modal fade">
+  <div class="modal-dialog1">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4>Та бөхийн мэдээллийг үнэхээр устгах уу?</h4>
+      </div>
+
+      <div class = "bukh_border">
+	      <div class="modal-footer">
+	      	<div class = "dis10"></div>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Болих</button>
+	        <button onclick = "deletebukh100()" id = "bukh_save" type="button" class="btn btn-primary">Устгах</button>
+	      </div>
+  	  </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

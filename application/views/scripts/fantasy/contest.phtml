@@ -1,0 +1,35 @@
+<?php $this->layout()->setLayout('fantasy'); ?>
+
+<div class = "contest-body">
+		<?php
+	        $role = Zend_Registry::get('role');
+	        if ($role == 'admins' || $role == 'moderators') {
+	            echo '<div class = "rt"><a class="glyphicon glyphicon-plus-sign" href = "'.$this -> baseUrl().'/fantasy/contestadd"></a></div>';
+	        }
+		?>
+
+		<?php
+			$cnt = 0;
+			foreach ($this->contest_prev as $key => $val) {
+					$cnt++;	
+			}
+			if($cnt > 0)
+			{
+				echo '<span style="color:green;	font-weight:bold">Үргэлжилж байгаа фантази тэмцээн</span></br>';
+				foreach ($this->contest_prev as $key => $val) {
+					echo '<span style="color:green;	font-weight:bold"><a href=" '.$this -> baseUrl().'/fantasy/contestmore/id/'.$val['id'].'">'.$val['name'].'</a></br></span><span style="color:green;	font-weight:bold">'.$val['start_date'].' </span><span style="color:green;	font-weight:bold">'.$val['end_date'].'</span>';						
+				}
+			}
+			$cnt = 0;
+			foreach ($this->contest_next as $key => $val) {
+					$cnt++;	
+			}			
+			if($cnt > 0)
+			{
+				echo '<span style="color:green;	font-weight:bold">Өнгөрсөн фантази тэмцээнүүд</span></br>';				
+				foreach ($this->contest as $key => $val) {
+					echo '<span style="color:green;	font-weight:bold">'.$val['name'].'</span><span style="color:green;	font-weight:bold">'.$val['start_date'].' </span><span style="color:green;	font-weight:bold">'.$val['end_date'].'</span>';						
+				}
+			}
+		?>
+</div>

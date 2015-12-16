@@ -1,0 +1,499 @@
+<?php $this->layout()->setLayout('user'); ?>
+<?php 
+	 $is = $this -> is; 	
+	 $image = 0;
+     $uid = $this -> dugaar;
+     $users = new Model_DbTable_Bukh();
+     $user = $users -> fetchAll($users -> select() -> where('id = '.$uid));
+     foreach ($user as $val) {
+     	  $uri = $val["uri"];
+          $obog = $val["lname"]; 
+          $ner = $val["fname"];
+          $date = $val["date"];
+          $tsolid = $val["tsolid"];
+          $aimagid = $val["aimagid"];
+          $sumid = $val["sumid"];
+		  $sponsor = $val["sponsor"];
+     }
+     $tsols = new Model_DbTable_Tsol();
+     $tsol = $tsols -> fetchAll($tsols -> select() -> where('id = '.$tsolid));
+     $tsolname = ""; 
+     foreach ($tsol as $key => $value) {
+          $tsolname = $value["name"];         
+     } 
+     $aimags = new Model_DbTable_Aimag();
+     $aimag = $aimags -> fetchAll($aimags -> select() -> where('id = '.$aimagid)); 
+     foreach ($aimag as $key => $value) {
+          $aimagname = $value["name"];         
+     }
+     $sums = new Model_DbTable_Sum();
+     $sum = $sums -> fetchAll($sums -> select() -> where('id = '.$sumid)); 
+     foreach ($sum as $key => $value) {
+          $sumname = $value["name"];         
+     }   
+?>
+
+<!---------------------------------------- Энд өгөгдлийн сангаас унших хэсэг -------------------------------------------------->
+	
+		
+		<?php if($is  == 'photos'){?>
+			
+			<div>
+			<div class = "user_header">
+	          <div class = "user_title">
+	          </div>
+	          <div id = "profile" class = "user_image">
+	               <?php
+	               echo '<span style="cursor:pointer"><img onclick = "imagechange()" src ="'.$this -> baseUrl().'/'.$uri.'" height="100%" width="100%" alt="oldsongui!" class="img-thumbnail"></img><span>'; ?>
+	          </div>
+	          <div class = "user_info">
+		          	   <span style="font-weight: bold; font-size: 16px; color: green;"><?php echo $obog; ?></span>
+		          	   <span style="font-weight: bold; font-size: 16px; color: green;"><?php echo $ner; ?></span>
+		          	</br>
+		          	   <span style="font-weight: bold; font-size: 14px; color: green;"><?php echo $tsolname; ?></span>
+		          	   <span style="font-weight: bold; font-size: 14px; color: #777;">(<?php echo $aimagname; echo ' '; echo $sumname; ?>)</span>
+	          </div>
+	     	</div>
+			<ul class="nav nav-tabs">
+			  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>">Танилцуулга</a></li>
+			  <li><a href="#">Амжилтууд</a></li>
+			  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/barildaan">Барилдаанууд</a></li>
+			  <li class="active"><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/photos">Зургийн цомог</a></li>
+			  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/videos">Бичлэгүүд</a></li>
+			</ul>
+			<div class="user_content">
+				
+				<div class = "loc_right3">	
+					<div class="dis10"></div>	
+					
+					<?php
+				        $role = Zend_Registry::get('role');
+				        if ($role == 'admins' || $role == 'moderators') {			
+								echo '<div class="btn-group">
+			  						<button class="btn btn-info btn-xs" type="button" data-toggle="modal" data-target="#myModal"><span style="font-weight: bold">Зураг оруулах</span></button>
+			  					</div>';
+						}
+  					?>
+  					
+					<div class="dis10"></div>
+					<table class="table_style">
+						<?php
+								$images = new Model_DbTable_Images();
+								$image = $images -> fetchAll($images -> select() -> where('bukhid = ' . $uid));
+								$cnt = 0;
+								foreach ($image as $key => $val) {
+									$cnt++;
+									if($cnt%4 == 1)
+									{
+										echo '<tr>';
+									}
+									echo '<td style = "height:200px;width:25%"><div id='.$val['url'].'.'.$val['ex'].' class = "image_full"><img style = "height:200px" class="img-thumbnail" src="'.$this -> baseUrl().'/images/photos/'.$val['url'].'.'.$val['ex'].'"></img></div></td>';
+									if($cnt%4 == 0)
+									{
+										echo '</tr>';
+									}
+								}
+								
+								if($cnt%4 != 0)
+								{
+									while($cnt%4 != 0)
+									{
+										echo '<td style = "height:200px;width:25%"></td>';	
+										$cnt++;
+									}
+									echo '</tr>';
+								}
+						?>
+					</table>
+					
+  				</div>
+			</div>
+			</div>
+						
+		<?php }else{ ?>
+			
+				<?php if($is == 'videos'){?>
+			<!---------------------------------Энд бичлэг эхлэл байна-------------------------------->
+							<div>
+							<div class = "user_header">
+					          <div class = "user_title">
+					          </div>
+					          <div class = "user_image">
+					               <?php
+					               echo '<span style="cursor:pointer"><img onclick = "imagechange()" src ="'.$this -> baseUrl().'/'.$uri.'" height="100%" width="100%" alt="oldsongui!" class="img-thumbnail"></img><span>'; ?>
+					          </div>
+					          <div class = "user_info">
+					          	   		          	   <span style="font-weight: bold; font-size: 16px; color: green;"><?php echo $obog; ?></span>
+		          	   <span style="font-weight: bold; font-size: 16px; color: green;"><?php echo $ner; ?></span>
+		          	</br>
+		          	   <span style="font-weight: bold; font-size: 14px; color: green;"><?php echo $tsolname; ?></span>
+		          	   <span style="font-weight: bold; font-size: 14px; color: #777;">(<?php echo $aimagname; echo ' '; echo $sumname; ?>)</span>
+		          	   
+					          </div>
+					     	</div>
+					     
+							<ul class="nav nav-tabs">
+							  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>">Танилцуулга</a></li>
+							  <li><a href="#">Амжилтууд</a></li>
+							  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/barildaan">Барилдаанууд</a></li>
+							  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/photos">Зургийн цомог</a></li>
+							  <li class="active"><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/videos">Бичлэгүүд</a></li>
+							</ul>
+<div class = "user_video">
+<video id="example_video_1" class="video-js vjs-default-skin"
+  controls preload="auto" width="100%" height="440px"
+  poster="http://video-js.zencoder.com/oceans-clip.png"
+  data-setup='{"example_option":true}'>
+ <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
+</video>
+</div>
+							</div>	
+							<!---------------------------------Энд бичлэгийн төгсгөл байна-------------------------------->	
+
+				<?php }else{; ?>
+					
+
+					<?php if($is == 'barildaan'){ ?>
+
+				<!------------------ Энд барилдаан эхлэл байна ------------------------------>
+				
+				<div>
+				<div class = "user_header">
+		          <div class = "user_title">
+		          </div>
+		          <div class = "user_image">
+		               <?php
+		               echo '<span style="cursor:pointer"><img onclick = "imagechange()" src ="'.$this -> baseUrl().'/'.$uri.'" height="100%" width="100%" alt="oldsongui!" class="img-thumbnail"></img><span>'; ?>
+		          </div>
+		          <div class = "user_info">
+
+		          	   <span style="font-weight: bold; font-size: 16px; color: green;"><?php echo $obog; ?></span>
+		          	   <span style="font-weight: bold; font-size: 16px; color: green;"><?php echo $ner; ?></span>
+		          	</br>
+		          	   <span style="font-weight: bold; font-size: 14px; color: green;"><?php echo $tsolname; ?></span>
+		          	   <span style="font-weight: bold; font-size: 14px; color: #777;">(<?php echo $aimagname; echo ' '; echo $sumname; ?>)</span>
+		          </div>
+		     	</div>
+		     	<div class="dis111"></div>
+				<ul class="nav nav-tabs">
+				  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>">Танилцуулга</a></li>
+				  <li><a href="#">Амжилтууд</a></li>
+				  <li class="active"><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/barildaan">Барилдаанууд</a></li>
+				  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/photos">Зургийн цомог</a></li>
+				  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/videos">Бичлэгүүд</a></li>
+				</ul>
+				<div class="user_barildaan">
+				<table  class="table table-bordered">
+				<div class="user_barildaan_header">
+					<?php echo '<tr class = "success"><td><span style="font-weight:bold;color: #00aeef">Огноо<span></td><td><span style="font-weight:bold;color: #00aeef">Барилдаан<span></td><td><span style="font-weight:bold;color: #00aeef">Үзүүлэлт<span></td><td><span style="font-weight:bold;color: #00aeef">Даваа<span></td><td><span style="font-weight:bold;color: #00aeef">Зохиогдсон газар<span></td><td><span style="font-weight:bold;color: #00aeef">Бөхийн тоо<span></td></tr>'; ?>
+				</div>
+				
+					    <?php
+
+					        $val = 0;
+					        foreach ($this -> barildaan as $val) {
+					        		$tmp = 0; $dv = 0; $dk = 0;
+					        		foreach ($this -> onoolt as $key => $on) {
+					        			if($on['barildaan_id'] == $val['id'])
+					        			{
+					        				if($on['bukh1_id'] == $this -> dugaar || $on['bukh2_id'] == $this -> dugaar)
+					        				{
+					        					if($on['davsanbukh_id'] == $this -> dugaar) $dv++;
+					        					else $dk++;
+					        					$tmp = 1; 
+					        				}
+					        			}
+					        		}
+					        		if($tmp == 1)
+					        		{
+						                echo '<tr>
+						                <td>'.$val['date'].'</td>
+						                <td>
+						                <a href="'.$this -> baseUrl().'/barildaan/more/id/'.$val['id'].'">'.$val['name'].'</a>
+						                </td><td><div>';
+											for($i = 1; $i <= $dv; $i++)
+											{
+												echo '<img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/unasan.gif" height="18px" width="18px" alt="oldsongui!"></img>';							
+											}
+											for($i = 1; $i <= $dk; $i++)
+											{
+												echo '<img class ="unasandavsan" src ="'.$this -> baseUrl().'/images/davsan.gif" height="18px" width="18px" alt="oldsongui!"></img>';							
+											}
+										echo '</div></td><td><a href="'.$this -> baseUrl().'/bukhchuud/ajaxbukhvs/barildaan/'.$val['id'].'/bukh/'.$this->dugaar.'">'.$dv.' давсан</a></td><td>'.$val['location'].'</td><td>'.$val['bukh_number'].'</td>            	
+						                </tr>';
+					            	}
+					        }        
+					    ?> 
+					</table>		
+				</div>		
+				</div>	
+				<!---------------------------------Энд барилдааны төгсгөл байна-------------------------------->
+
+					<?php }else{ ?>
+								<!---------------------------------Энд танилцуулга эхлэл байна-------------------------------->
+								
+								<div>
+								<div class = "user_header">
+						          <div class = "user_title">
+						          </div>
+						          <div class = "user_image">
+						               <?php
+						               echo '<span style="cursor:pointer"><img onclick = "imagechange()" src ="'.$this -> baseUrl().'/'.$uri.'" height="100%" width="100%" alt="oldsongui!" class="img-thumbnail"></img><span>'; ?>
+						          </div>
+						          <div class = "user_info">
+
+						          	   <span style="font-weight: bold; font-size: 16px; color: green;"><?php echo $obog; ?></span>
+						          	   <span style="font-weight: bold; font-size: 16px; color: green;"><?php echo $ner; ?></span>
+		          	</br>
+		          	   <span style="font-weight: bold; font-size: 14px; color: green;"><?php echo $tsolname; ?></span>
+		          	   <span style="font-weight: bold; font-size: 14px; color: #777;">(<?php echo $aimagname; echo ' '; echo $sumname; ?>)</span>
+						          </div>
+						     	</div>
+						     	<div class="dis111"></div>
+								<ul class="nav nav-tabs">
+								  <li  class="active"><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>">Танилцуулга</a></li>
+								  <li><a href="#">Амжилтууд</a></li>
+								  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/barildaan">Барилдаанууд</a></li>
+								  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/photos">Зургийн цомог</a></li>
+								  <li><a href="<?php echo $this -> baseUrl() ?>/bukhchuud/page/id/<?php echo $uid;?>/q/videos">Бичлэгүүд</a></li>
+									
+
+
+
+								</ul>
+									   <!--<div class="user_taniltsuulga">
+										   <p style="font-weight: bold"> Овог : <?php echo $obog; ?></p>
+							          	   <p style="font-weight: bold"> Нэр : <?php echo $ner; ?></p>
+							               <p style="font-weight: bold"> Төрсөн огноо : <?php echo $date; ?></p>
+							               <p style="font-weight: bold"> Цол : <?php echo $tsolname; ?></p>
+							               <p style="font-weight: bold"> Уугуул нутаг : <?php echo $aimagname; ?></p>
+							               <p style="font-weight: bold"> Төрсөн сум : <?php echo $sumname; ?></p>
+							               <p style="font-weight: bold"> Ивээн тэтгэгч байгуулага : <?php echo $sponsor; ?></p>
+						               </div>-->
+						               <div class="user_barildaan">
+
+						               	<div class="user_top">
+<p>
+</br>
+<span style="font-weight: bold">Танилцуулга</span></br>
+Бөхийн багш: Баянмөнх</br>
+
+Дархан мэх: Хазахаас бусдыг хийнэ.</br>
+
+Сумо бөхийн дэлхийн хошой аварга. 1993 оны улсын наадамд Ш.Батхуяг начингаар зургаа давж өсөх идэр начин, 1997 онд О.Балжинням аваргаар долоо давж заан цол хүртсэн. 1998 онд улсын начин Б.Ганбатаар зургаа, 1999 онд улсын начин Ч.Батзоригоор тав давжээ.
+2000, 2001 онуудад дараалан түрүүлж Монгол улсын 17 дахь аварга болсон.
+</br>
+</br>
+</p>
+						               	</div>
+						               	<div class="dis10"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=796259283733367";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-comments" data-href="http://localhost/dun/public/bukhchuud/page/id/14" data-width="890" data-numposts="100" data-colorscheme="light"></div>
+						               </div>
+								</div>	
+								<!---------------------------------Энд танилцуулга төгсгөл байна-------------------------------->
+
+						<?php }?>
+
+				<?php }?>
+			
+		<?php } ?> 
+
+
+
+
+<!---------------------------------------------- Modal ---------------------------------------------------------------->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Бөхийн зургийг бөхийн зургийн цомогт оруулах</h4>
+      </div>
+      <div class="modal-body">
+      	 <!--------------------Харагдацыг өөрчлөх-------------------------->
+		 <?php 
+		 	echo $this->form; 
+		 ?>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModalimagefull" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Үндэснийхээ үе үеийн цуутай бөхчүүдийн зургуудыг тухлан сууж таалан болгооно уу.</h4>
+      </div>
+      <div id="prev_image">
+      </div>
+      <div id="pic" class="modal-body">
+
+      	 	<!--------------------Харагдацыг өөрчлөх-------------------------->
+
+<div class="wmuSlider example1">
+        
+        <div class="wmuSliderWrapper">
+
+            <article>
+                <img src="http://farm7.static.flickr.com/6052/6279000273_218313c876.jpg" />
+            </article>
+    
+            <article>
+                <img src="http://farm7.static.flickr.com/6104/6271856202_1e3ccb3deb.jpg" />
+            </article>
+    
+            <article>
+                <img src="http://farm7.static.flickr.com/6053/6268322528_818ab33f7f.jpg" />
+            </article>
+
+            <article>
+                <img src="http://farm7.static.flickr.com/6232/6239597762_15491d4c97.jpg" />
+            </article>
+        
+            <article>
+                <img src="http://farm7.static.flickr.com/6057/6224753006_9fb962d890.jpg" />
+            </article>
+
+            <article>
+                <img src="http://farm7.static.flickr.com/6036/6213397745_1d8f223e93.jpg" />
+            </article>
+        </div>
+                        
+    <!-- END .wmuSlider -->
+    </div>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".image_full").click(function(){
+			id = this.id;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/bukhchuud/ajaximageurl',
+	            async: true,
+	            data: { id: id },
+	            success: function(res) {
+	               	len = res.length;
+	            	content = '';
+	               	for (i = 0; i < len; i++) {
+	                	content += '<img height="100%" width="100%" src = "'+baseUrl+'/images/photos/'+res[i].id+'">';
+	                }
+	                content += '</img>';
+	               	$("#pic").html(content);
+	                $("#myModalimagefull").modal('show');
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});			
+		})
+	});
+</script>
+
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#pic1").hover(function(){
+			content = '';
+			content +='<p>hehes</p>';
+			$("#prev_image").html(content);
+		})
+	});
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".bukhvs").click(function(){
+			var bukh = <?php echo $this->dugaar; ?>;
+			var id = this.id;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/bukhchuud/ajaxbukhvs',
+	            async: true,
+	            data: { barildaan: id, bukh: bukh },
+	            success: function(res) {
+	            	alert('yes');
+				},
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});	
+		})
+	});
+</script>
+
+
+<script type="text/javascript">
+		function imagechange()
+		{
+			var bukh = <?php echo $this->dugaar; ?>;
+			$.ajax({
+		            type: 'POST',
+		            dataType: 'json',
+		            url: baseUrl+'/bukhchuud/ajaxprofilechange',
+		            async: true,
+		            data: { bukh: bukh },
+		            success: function(res) {
+		            	$("#myModal1").modal('show');
+					},
+		            error: function() {
+		            	alert('no');
+		            }
+		    });	
+		}
+</script>
+
+
+<!---------------------------------------------- Modal ---------------------------------------------------------------->
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Бөхийн нүүр хуудасны зургыг өөрчлөх</h4>
+      </div>
+      <div class="modal-body1">
+      	 <!--------------------Харагдацыг өөрчлөх-------------------------->
+		 <?php 
+		 	echo $this->form; 
+		 ?>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type = "text/javascript">
+	function like()
+	{
+
+	}
+</script>

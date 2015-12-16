@@ -1,0 +1,93 @@
+<?php echo $this->doctype(); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
+<head profile="http://gmpg.org/xfn/11">
+<title>Дүн мэдээ мэдээллийн үндэсний портал</title>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="imagetoolbar" content="no" />
+    
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/styles/layout.css');?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/styles/code.css');?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/styles/forms.css');?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/templatemo_style.css');?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/demo.css');?>
+
+    <?php echo $this->headTitle();?>
+    <?php echo $this ->headMeta();?>
+    <?php $js = "/dun/public/js/"; ?>
+    
+    <!--<script type='text/javascript' src="https://gist.github.com/makeusabrew/6327194.js"></script>-->
+    <script type='text/javascript' src='<?php echo $js;?>countdown.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>countdown.min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>jquery.min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>jquery.scrollTo-min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>jquery.localscroll-min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>docs.min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>modernizr.custom.min.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>jquery.wmuSlider.js'></script>
+    <script type='text/javascript' src='<?php echo $js;?>jquery.wmuGallery.js'></script>
+    
+    <script src="<?php echo $js; ?>jquery.js"></script> 
+
+    <script src="/dun/public/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/dun/public/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/dun/public/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/dun/public/bootstrap/css/docs.min.css" rel="stylesheet">
+    
+    <?php $editor = '/dun/public/ckeditor'; ?>
+    <script type="text/javascript" src="<?php echo $editor; ?>/ckeditor.js"></script>
+    <script type="text/javascript" src="<?php echo $editor; ?>/adapters/jquery.js"></script>
+    <script type="text/javascript">
+    $(function() {
+                $('#textcontent' ).ckeditor();
+            });
+    var baseUrl = "http://localhost/dun/public";       
+    </script>
+
+</head>
+<body id = "top">
+
+<div class="body_header_fantasy">
+            <?php echo '<div class ="fantasy_header"><img src="'.$this -> baseUrl().'/images/fantasy.jpg" height="100%" width="100%"></img></div>'; ?>
+            <!-- Энд-->
+
+            <div class="_6a _6e _5loj _5lok"><div class="_5lol"><a class="_5md9" href="/dun/public/fantasy/myteam"><div class="_6a"><div class="_6a _6b" style="height:22px"></div><div class="_6a _6b"><span class="_5md5 _50f4 _50f7">Мэдээ мэдээлэл</span></div></div></a></div></div>
+
+                    <div class="_6a _6e _5loj _5lok"><div class="_5lol"><a class="_5md9" href="/dun/public/fantasy/myteamchange"><div class="_6a"><div class="_6a _6b" style="height:22px"></div><div class="_6a _6b"><span class="_5md5 _50f4 _50f7">Чансаа</span></div></div></a></div></div>
+
+                    <div class="_6a _6e _5loj _5lok"><div class="_5lol"><a class="_5md9" href="/dun/public/fantasy/naimaa"><div class="_6a"><div class="_6a _6b" style="height:22px"></div><div class="_6a _6b"><span class="_5md5 _50f4 _50f7">Даваанууд</span></div></div></a></div></div>
+                    <div class="_6a _6e _5loj _5lok"><div class="_5lol"><a class="_5md9" href="/dun/public/fantasy/contest"><div class="_6a"><div class="_6a _6b" style="height:22px"></div><div class="_6a _6b"><span class="_5md5 _50f4 _50f7">Бүртгүүлэх</span></div></div></a></div></div>
+                    
+                    <div class="user_loc1">
+                            <ul>
+                            <li class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <img class="img" src="/dun/public/images/profile/adya.jpg" alt="" height="28px" width="28px">
+                                
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="/dun/public/user/mypage/id/1">Миний хуудас</a></li>
+                                <li><a href="#">Хувийн тохиргоо</a></li>
+                                <li><a href="#">Үзүүлэлт</a></li>
+                                <li><a href="/dun/public/authentication/logout">Гарах</a></li>
+                              </ul>
+                            </li>
+                            </ul>
+                    </div>
+
+        <!-- Энд-->
+        <?php echo $this->layout()->content; ?> 
+</div>
+
+<div class="dis10"></div>
+
+<div class="wrapper col7">
+  <div id="copyright">
+    <p class="center">
+            school of imformation technology NUM @ 2014 
+    </p>
+  </div>
+</div>
+</body>
+</html>

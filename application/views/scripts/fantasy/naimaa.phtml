@@ -1,0 +1,331 @@
+<?php $this->layout()->setLayout('fantasy'); ?>
+
+
+<div class = "naimaa-body">
+<div class = "naimaa-body-left">
+
+	<div class = "naimaa"></div>
+	<div class = "dis10"></div>
+	<div class = "naimaa-bukh">
+				<?php
+
+				foreach ($this->gal as $key => $value) {
+					$bukh1_id = $value['bukh1_id'];
+					$bukh2_id = $value['bukh2_id'];
+					$bukh3_id = $value['bukh3_id'];
+					$bukh4_id = $value['bukh4_id'];
+					$bukh5_id = $value['bukh5_id'];
+					$bukh6_id = $value['bukh6_id'];
+					$bukh7_id = $value['bukh7_id'];
+					$bukh8_id = $value['bukh8_id'];
+					$bukh9_id = $value['bukh9_id'];
+					$bukh10_id = $value['bukh10_id'];
+				}
+
+				$gals = array();
+				$r = 0;
+				$gals[$r++] = $bukh1_id;
+				$gals[$r++] = $bukh2_id;
+				$gals[$r++] = $bukh3_id;
+				$gals[$r++] = $bukh4_id;
+				$gals[$r++] = $bukh5_id;
+				$gals[$r++] = $bukh6_id;
+				$gals[$r++] = $bukh7_id;
+				$gals[$r++] = $bukh8_id;
+				$gals[$r++] = $bukh9_id;
+				$gals[$r++] = $bukh10_id;
+				echo '<table id = "mytable" class="table table-hover">';
+				echo '<tr class = "success"><td><span style="font-weight:bold;color: #00aeef">#<span></td><td><span style="font-weight:bold;color: #00aeef">Овог<span></td><td><span style="font-weight:bold;color: #00aeef">Нэр<span></td><td><span style="font-weight:bold;color: #00aeef">Аймаг<span></td><td><span style="font-weight:bold;color: #00aeef">Сум<span></td><td><span style="font-weight:bold;color: #00aeef">Цол<span></td><td><span style="font-weight:bold;color: #00aeef">Төрсөн огноо<span></td></tr>';
+	        	$cnt = count($gals);	  
+				for($i = 0; $i < $cnt; $i++) {
+					if($gals[$i] == 0)
+					{
+						$dp  = $i + 1;
+						echo '<tr><td>'.$dp.'</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';					
+						continue;
+					}
+					foreach ($this -> bukh as $key => $val) {
+						if($gals[$i] == $val['id'])
+						{
+							$aimags = new Model_DbTable_Aimag();
+							$aimag = $aimags -> fetchAll($aimags -> select() -> where('id = '.$val['aimagid']));
+							foreach ($aimag as $key => $a) {
+									$aimag_name = $a['name'];
+							}	
+							$sums = new Model_DbTable_Sum();
+							$sum = $sums -> fetchAll($sums -> select() -> where('id = '.$val['sumid'].' AND aimagid = '.$val['aimagid']));
+							$sum_name = "";
+							foreach ($sum as $key => $a) {
+									$sum_name = $a['name'];
+							}
+							$tsols = new Model_DbTable_Tsol();
+							$tsol = $tsols -> fetchAll($tsols -> select() -> where('id = '.$val['tsolid']));
+							$tsol_name = "";
+							foreach ($tsol as $key => $a) {
+									$tsol_name = $a['name'];
+							}
+							$bukh_num = $i + 1;
+							if($bukh_num <= 7)
+							{
+
+								echo '<tr onclick = "deletebukh(this)" style = "background-color: #7FFFD4"><td>'.$bukh_num.'</td><td>'.$val['lname'].'</td><td>'.$val['fname'].'</td><td>'.$aimag_name.'</td><td>'.$sum_name.'</td><td>'.$tsol_name.'</td><td>'.$val['date'].'</td></tr>';
+							}
+							else
+							{
+								echo '<tr onclick = "deletebukh(this)" ><td>'.$bukh_num.'</td><td>'.$val['lname'].'</td><td>'.$val['fname'].'</td><td>'.$aimag_name.'</td><td>'.$sum_name.'</td><td>'.$tsol_name.'</td><td>'.$val['date'].'</td></tr>';						
+							}
+						}
+					}
+				}
+		    	echo '</table>';
+		    	?>
+	</div>
+
+</div>
+<div class = "naimaa-body-right">
+		<span style="font-weight:bold;color: #777">Цолоор хайх :</span></br>
+		<select  style = "width:90%">
+			<option value = "0">Бүх бөхчүүд</option>
+			<?php 
+			$db = Zend_Registry :: get('db');
+
+			$sql = $db->quoteInto('select * from tsol',null);
+			$users = $db->query($sql)->fetchAll();
+
+			foreach ($users as $user){
+			    echo '<option value = "'.$user['id'].'">'.$user['name'].'</option>';
+			}
+			
+			?>
+		</select>
+		<span style="font-weight:bold;color: #777">Аймгаар хайх :</span></br>
+		<select  style = "width:90%">
+			<option value = "0">Бүх аймгууд</option>
+			<?php 
+			$db = Zend_Registry :: get('db');
+
+			$sql = $db->quoteInto('select * from aimag',null);
+			$users = $db->query($sql)->fetchAll();
+
+			foreach ($users as $user){
+			    echo '<option value = "'.$user['id'].'">'.$user['name'].'</option>';
+			}
+			
+			?>
+		</select>
+		<span style="font-weight:bold;color: #777">Сумаар хайх :</span></br>
+		<select  style = "width:90%">
+			<option value = "0">Бүх сумдууд</option>
+			<?php 
+			$db = Zend_Registry :: get('db');
+
+			$sql = $db->quoteInto('select * from sum',null);
+			$users = $db->query($sql)->fetchAll();
+			/*
+			foreach ($users as $user){
+			    echo '<option value = "'.$user['id'].'">'.$user['name'].'</option>';
+			}
+			*/
+			
+			?>
+		</select>
+		<div class = "naimaa-body-right-bukh">
+			<?php
+				foreach ($this->bukh as $key => $value) {
+					$tsol_name = "";
+					foreach ($this->tsol as $key => $val) {
+						if($value['tsolid'] == $val['id'])
+						{
+							$tsol_name = $val['name'];		
+						}
+					}
+					echo '<div onclick = "more(this.id)" id = "'.$value['id'].'" class = "naimaa-body-right-bukh-content" style ="color:white">
+						<div class = "coder-body">
+							<div class = "coder-body-left">
+								<img src = "'.$this -> baseUrl().'/'.$value['uri'].'" height="36px" width="36px"></img>
+							</div>
+							<div class = "coder-body-right">
+								<span style = "font-size: 10px">'.$value['lname'].' '.$value['fname'].'</span></br>
+								<div class= "gn_more">
+								<span style = "font-size: 10px;color: #777">( '.$tsol_name.' )</span>
+								</div>
+							</div>
+						</div>	
+					</div>';
+				}
+			?>
+		</div>
+		<div class = "dis10"></div>
+</div>
+</div>
+
+<script type="text/javascript">
+	function more(id)
+	{		
+			$.ajax({
+		            type: 'POST',
+		            dataType: 'json',
+		            url: baseUrl+'/fantasy/naimaaaddbukh',
+		            async: true,
+		            data: { id : id },
+		            success: function(res) {
+		            	id = res[0].id;
+		            	$("#myModaladd").data("bukhdugaar", res[0].id);
+		            	content = "";
+		            	content += '<span style="font-weight:bold;color: #00aeef">Овог : '+res[0].lname+'</span></br>';
+		            	content += '<span style="font-weight:bold;color: #00aeef">Нэр : '+res[0].fname+'</span></br>';
+		            	cnt = "";
+		            	cnt += '<img height="100%" width="100%" src = "'+baseUrl+'/'+res[0].uri+'">';
+		            	
+		            	cmp = "";
+		            	cmp += '<span style="font-weight:bold;color: green">Үндэсний бөхийн фантазигийн оноо нь '+res[0].score+' байна.</span>';
+		            	$("#bukh-body-footer1").html(cmp);
+
+		            	$("#bukh-bodyS-right1").html(content);
+		            	$("#bukh-bodyS-left1").html(cnt);		            	
+		            	$("#myModaladd").modal('show');
+		            },
+		            error: function() {
+		            	alert('no');
+		            }
+		    });
+	}
+</script>
+
+<script type="text/javascript">
+	function deletebukh(x)
+	{
+			
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable');
+			var id = table.rows[row].cells[0].innerHTML;
+
+			$.ajax({
+		            type: 'POST',
+		            dataType: 'json',
+		            url: baseUrl+'/fantasy/ajaxnaimaadeletebukh',
+		            async: true,
+		            data: { id : id },
+		            success: function(res) {
+		            	id = res[0].id;
+		            	$("#myModal").data("bukhdugaar", res[0].bukh_id);
+		            	content = "";
+		            	content += '<span style="font-weight:bold;color: #00aeef">Овог : '+res[0].lname+'</span></br>';
+		            	content += '<span style="font-weight:bold;color: #00aeef">Нэр : '+res[0].fname+'</span></br>';
+		            	cnt = "";
+		            	cnt += '<img height="100%" width="100%" src = "'+baseUrl+'/'+res[0].uri+'">';
+		            	$("#bukh-bodyS-right").html(content);
+		            	$("#bukh-bodyS-left").html(cnt);
+
+		            	cmp = "";
+		            	cmp += '<span style="font-weight:bold;color: green">Үндэсний бөхийн фантазигийн оноо нь '+res[0].score+' байна.</span>';
+		            	$("#bukh-body-footer").html(cmp);
+
+		            	$("#myModal").modal('show');
+		            },
+		            error: function() {
+		            	alert('no');
+		            }
+		    });
+	}
+</script>
+
+
+<div id = "myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 style = "color:green" class="modal-title">Бөхийн үндсэн мэдээлэл</h4>
+      </div>
+      <div id = "bukh-body1" class="modal-body">
+      	<div id = "bukh-bodyS">
+      		<div id = "bukh-bodyS-left"></div>
+      		<div id = "bukh-bodyS-right"></div>
+      	</div>
+      	<div class = "dis10"></div>
+      	<div class = "dis10"></div>
+      	<div class = "dis10"></div>
+      	<div id = "bukh-body-footer"></div>
+      </div>
+      <div class="modal-footer">
+      	<div class = "mrgn10">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Болих</button>
+	        <button onclick = "zarah()" type="button" class="btn btn-primary">Зарах</button>
+    	</div>
+        <div class = "dis10"></div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<div id = "myModaladd" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 style = "color:green" class="modal-title">Бөхийн үндсэн мэдээлэл</h4>
+      </div>
+      <div id = "bukh-body1" class="modal-body">
+      	<div id = "bukh-bodyS1">
+      		<div id = "bukh-bodyS-left1"></div>
+      		<div id = "bukh-bodyS-right1"></div>
+      	</div>
+      	<div class = "dis10"></div>
+      	<div class = "dis10"></div>
+      	<div class = "dis10"></div>
+      	<div id = "bukh-body-footer1"></div>
+      </div>
+      <div class="modal-footer">
+      	<div class = "mrgn10">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Болих</button>
+	        <button onclick = "avah()" type="button" class="btn btn-primary">Худалдаж авах</button>
+    	</div>
+        <div class = "dis10"></div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type = "text/javascript">
+	function avah()
+	{
+			var id = $("#myModaladd").data("bukhdugaar");
+			$.ajax({
+		            type: 'POST',
+		            dataType: 'json',
+		            url: baseUrl+'/fantasy/ajaxnaimaabukhavah',
+		            async: true,
+		            data: { id : id },
+		            success: function(res) {
+		            	window.location.reload(this);
+		            },
+		            error: function() {
+		            	alert('no');
+		            }
+		    });		
+	}
+</script>
+
+<script type = "text/javascript">
+	function zarah()
+	{
+			var id = $("#myModal").data("bukhdugaar");
+			$.ajax({
+		            type: 'POST',
+		            dataType: 'json',
+		            url: baseUrl+'/fantasy/ajaxnaimaabukhzarah',
+		            async: true,
+		            data: { id : id },
+		            success: function(res) {
+		            	window.location.reload(this);
+		            },
+		            error: function() {
+		            	alert('no');
+		            }
+		    });		
+	}
+</script>

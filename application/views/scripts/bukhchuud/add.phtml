@@ -1,0 +1,33 @@
+<?php $this->layout()->setLayout('Authentication'); ?>
+<div class = "bukh-body">
+<?php
+  echo $this -> error;
+  echo $this -> form;
+?>
+</div>
+ 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#aimag").change(function(){
+			id = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/bukhchuud/ajax',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	                len = res.length;
+	                content = "";
+	                for (i = 0; i < len; i++) {
+	                	content += '<option value = "'+res[i].id+'">'+res[i].name+'</option>';
+	                }
+	                $("#sum").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+</script>

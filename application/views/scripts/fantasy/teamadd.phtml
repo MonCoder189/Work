@@ -1,0 +1,903 @@
+<?php $this->layout()->setLayout('fantasy'); ?>
+
+
+<?php 
+	//Гал тоолох
+	$cnt = 0;	
+	foreach ($this->gal as $key => $value) {
+		$cnt++;
+		$bukh1_id = $value['bukh1_id'];
+		$bukh2_id = $value['bukh2_id'];
+		$bukh3_id = $value['bukh3_id'];
+		$bukh4_id = $value['bukh4_id'];
+		$bukh5_id = $value['bukh5_id'];
+		$bukh6_id = $value['bukh6_id'];
+		$bukh7_id = $value['bukh7_id'];
+		$bukh8_id = $value['bukh8_id'];
+		$bukh9_id = $value['bukh9_id'];
+		$bukh10_id = $value['bukh10_id'];
+	}
+	if($cnt == 0)
+	{
+		echo '<div class = "fantasy-my-team-body">
+			<div class="form-signin">
+				<h4 class="form-signin-heading" style="color:#1578bc;font-family: segoe ui;">Үндэсний бөхийн фантазид галаа бүртгүүлэх хуудас</h4>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh" class="form-control" placeholder="Таны галын нэр" autofocus="">
+				                    </div>
+				</div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-1" class="form-control bukh" placeholder="Таны галын 1-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result1"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-2" class="form-control bukh" placeholder="Таны галын 2-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result2"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-3" class="form-control bukh" placeholder="Таны галын 3-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result3"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-4" class="form-control bukh" placeholder="Таны галын 4-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result4"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-5" class="form-control bukh" placeholder="Таны галын 5-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result5"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-6" class="form-control bukh" placeholder="Таны галын 6-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result6"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-7" class="form-control bukh" placeholder="Таны галын 7-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result7"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-8" class="form-control bukh" placeholder="Таны галын 8-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result8"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-9" class="form-control bukh" placeholder="Таны галын 9-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>		
+				<div id = "search-result9"></div>
+				<div class="form-group">
+				                    <div class="input-group">
+				                        <span class="input-group-addon"><img src="'.$this->baseUrl().'/images/user.png" height="20px" width="20px"></span>
+				                        <input type="text" id="bukh-10" class="form-control bukh" placeholder="Таны галын 10-р бөхийн нэр" autofocus="">
+				                    </div>
+				</div>
+				<div id = "search-result10"></div>
+				<button class="btn btn-lg btn-primary btn-block" id="submit" onclick="return loginMe()" type="submit">Бүртгүүлэх</button>	
+				<div id = "search-result11"></div>
+			</div>
+		</div>';
+}
+else
+{ 
+			foreach ($this -> gal as $value) 
+			{
+				$galname = $value['name'];
+				$score = $value['score'];
+				$rank = $value['rank'];
+			}
+			$rank = 1;
+			$score = 1;
+			echo '<div class = "fantasy-text">';
+			echo '<h4 class="form-signin-heading" style="color:#1578bc;font-family: segoe ui;">Дэвжээний нэр : '.$galname.'</h4>';
+			echo '<h4 class="form-signin-heading" style="color:#1578bc;font-family: segoe ui;">Дэвжээний оноо : '.$score.'</h4>';
+			echo '<h4 class="form-signin-heading" style="color:#1578bc;font-family: segoe ui;">Дэвжээний чансаа : '.$rank.'</h4>';
+			echo '<h4 class="form-signin-heading" style="color:#1578bc;font-family: segoe ui;">'.$galname.' дэвжээний бөхчүүд</h4>';
+			echo '<div class = "fantasy-bukh-body">';
+			echo '<div id = "fantasy-bukh-body-left"><table class="table table-hover"><tr class = "success"><td><span style="font-weight:bold;color: #00aeef">Солих<span></td></tr>';
+			for ($i=1; $i <= 10; $i++) {
+					echo '<tr onclick = "selectbukh(this);"><td><img src="'.$this->baseUrl().'/images/empty-check-box.png" height="15px" width="15px"></img></td></tr>';	
+			}
+			echo '</table></div>';
+			echo '<div id = "fantasy-table-body">';	
+			$gals = array();
+			$r = 0;
+			$gals[$r++] = $bukh1_id;
+			$gals[$r++] = $bukh2_id;
+			$gals[$r++] = $bukh3_id;
+			$gals[$r++] = $bukh4_id;
+			$gals[$r++] = $bukh5_id;
+			$gals[$r++] = $bukh6_id;
+			$gals[$r++] = $bukh7_id;
+			$gals[$r++] = $bukh8_id;
+			$gals[$r++] = $bukh9_id;
+			$gals[$r++] = $bukh10_id;
+			echo '<table class="table">';
+			echo '<tr class = "success"><td><span style="font-weight:bold;color: #00aeef">#<span></td><td><span style="font-weight:bold;color: #00aeef">Овог<span></td><td><span style="font-weight:bold;color: #00aeef">Нэр<span></td><td><span style="font-weight:bold;color: #00aeef">Аймаг<span></td><td><span style="font-weight:bold;color: #00aeef">Сум<span></td><td><span style="font-weight:bold;color: #00aeef">Цол<span></td><td><span style="font-weight:bold;color: #00aeef">Төрсөн огноо<span></td></tr>';
+        	$cnt = count($gals);	  
+			for($i = 0; $i < $cnt; $i++) {
+				foreach ($this -> bukh as $key => $val) {
+					if($gals[$i] == $val['id'])
+					{
+						$aimags = new Model_DbTable_Aimag();
+						$aimag = $aimags -> fetchAll($aimags -> select() -> where('id = '.$val['aimagid']));
+						foreach ($aimag as $key => $a) {
+								$aimag_name = $a['name'];
+						}	
+						$sums = new Model_DbTable_Sum();
+						$sum = $sums -> fetchAll($sums -> select() -> where('id = '.$val['sumid'].' AND aimagid = '.$val['aimagid']));
+						foreach ($sum as $key => $a) {
+								$sum_name = $a['name'];
+						}
+						$tsols = new Model_DbTable_Tsol();
+						$tsol = $tsols -> fetchAll($tsols -> select() -> where('id = '.$val['tsolid']));
+						foreach ($tsol as $key => $a) {
+								$tsol_name = $a['name'];
+						}
+						$bukh_num = $i + 1;
+						if($bukh_num <= 7)
+						{
+							echo '<tr><td>'.$bukh_num.'</td><td>'.$val['lname'].'</td><td>'.$val['fname'].'</td><td>'.$aimag_name.'</td><td>'.$sum_name.'</td><td>'.$tsol_name.'</td><td>'.$val['date'].'</td></tr>';
+						}
+						else
+						{
+							echo '<tr><td>'.$bukh_num.'</td><td>'.$val['lname'].'</td><td>'.$val['fname'].'</td><td>'.$aimag_name.'</td><td>'.$sum_name.'</td><td>'.$tsol_name.'</td><td>'.$val['date'].'</td></tr>';						
+						}
+					}
+				}
+			}
+	    	echo '</table>';
+	    	echo '</div>';
+	    	echo '</div>';
+	    	echo '</div>';
+	    	echo '<div class = "dis10"></div>';
+	    	echo '<div id = "coder"></div>';
+} 
+?>
+
+<script type="text/javascript">
+	function selectbukh(x)
+	{
+		var id = x.rowIndex;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteamsort',
+	            async: true,
+	            data: { id : id },
+	            success: function(res) {
+	            	content = "";
+	            	content += '<table class="table table-hover"><tr class = "success"><td><span style="font-weight:bold;color: #00aeef">Солих<span></td></tr>';
+	            	
+	            	tmp = res[0].tmp;
+	            	num = res[0].bukh;
+	            	
+	            	for(i=1; i<=10; i++)
+	            	{
+	            		if(tmp == 2)
+	            		{
+		        	    		content += '<tr onclick = "selectbukh(this);"><td><img src="<?php echo $this -> baseUrl(); ?>/images/empty-check-box.png" height="15px" width="15px"></img></td></tr>';
+		        	    		
+	            		}
+	            		else
+	            		{
+		            		if(i == num)	
+		            		{
+		    	        		content += '<tr onclick = "selectbukh(this);"><td><img src="<?php echo $this -> baseUrl(); ?>/images/full-check-box.png" height="15px" width="15px"></img></td></tr>';
+		            		}
+		            		else
+		            		{
+		        	    		content += '<tr onclick = "selectbukh(this);"><td><img src="<?php echo $this -> baseUrl(); ?>/images/empty-check-box.png" height="15px" width="15px"></img></td></tr>';
+		            		}	            			
+	            		}
+	            	}
+	            	content += '</table>';
+	            	$("#fantasy-bukh-body-left").html(content);
+	            	if(tmp == 2)
+	            	{
+	            			window.location.reload(this);
+	            	}
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<script type="text/javascript">
+	function loginMe(){
+			var text = document.getElementById('bukh').value;
+			var bukh1 = $("#bukh-1").data("bukhdugaar");
+			var bukh1score = $("#bukh-1").data("score");
+			var bukh2 = $("#bukh-2").data("bukhdugaar");
+			var bukh2score = $("#bukh-2").data("score");
+			var bukh3 = $("#bukh-3").data("bukhdugaar");
+			var bukh3score = $("#bukh-3").data("score");
+			var bukh4 = $("#bukh-4").data("bukhdugaar");
+			var bukh4score = $("#bukh-4").data("score");
+			var bukh5 = $("#bukh-5").data("bukhdugaar");
+			var bukh5score = $("#bukh-5").data("score");
+			var bukh6 = $("#bukh-6").data("bukhdugaar");
+			var bukh6score = $("#bukh-6").data("score");
+			var bukh7 = $("#bukh-7").data("bukhdugaar");
+			var bukh7score = $("#bukh-7").data("score");
+			var bukh8 = $("#bukh-8").data("bukhdugaar");
+			var bukh8score = $("#bukh-8").data("score");
+			var bukh9 = $("#bukh-9").data("bukhdugaar");
+			var bukh9score = $("#bukh-9").data("score");
+			var bukh10 = $("#bukh-10").data("bukhdugaar");
+			var bukh10score = $("#bukh-10").data("score");
+
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteamadd',
+	            async: true,
+	            data: { text: text, bukh1: bukh1, bukh2: bukh2, bukh3: bukh3, bukh4: bukh4, bukh5: bukh5, bukh6: bukh6, bukh7: bukh7, bukh8: bukh8, bukh9: bukh9, bukh10: bukh10, bukh1score: bukh1score, bukh2score: bukh2score , bukh3score: bukh3score , bukh4score: bukh4score , bukh5score: bukh5score , bukh6score: bukh6score , bukh7score: bukh7score , bukh8score: bukh8score , bukh9score: bukh9score, bukh10score: bukh10score },
+	            success: function(res) {
+	            	content = "</br>";
+	            	if(res[0].status == "yes")
+	            	{
+	            		content += '<span style="font-weight:bold;color:green">Амжилттай бүртгэгдлээ</span>';
+	            	} 
+	            	else
+	            	{
+	            		content += '<span style="font-weight:bold;color:red">Өгөгдөл дутуу оруулсан байна!!!</span>';
+	            	}
+	            	$("#search-result11").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});	
+	}
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-1").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable1" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick1(this);"><td style= "visibility:hidden">'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result1").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-2").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable2" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick2(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result2").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-3").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable3" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick3(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result3").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-4").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable4" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick4(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result4").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-5").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable5" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick5(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result5").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-6").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable6" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick6(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result6").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-7").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable7" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick7(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result7").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-8").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable8" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick8(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result8").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-9").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable9" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick9(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result9").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-10").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxmyteambukhadd',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable10" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick10(this);"><td>'+res[i].id+'</td><td><img src ="<?php echo $this -> baseUrl(); ?>/'+res[i].uri+'" height="30px" width="30px"></img></td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result10").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+
+<script type="text/javascript">
+	function handleClick1(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable1');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-1").data("bukhdugaar", res[0].id);
+	            	$("#bukh-1").data("bukhlname", res[0].lname);
+	            	$("#bukh-1").data("bukhfname", res[0].fname);
+	            	$("#bukh-1").data("score", res[0].score);
+	                $("#bukh-1").val(content);
+	                conp = "";
+	                $("#search-result1").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick2(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable2');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-2").data("bukhdugaar", res[0].id);
+	            	$("#bukh-2").data("bukhlname", res[0].lname);
+	            	$("#bukh-2").data("bukhfname", res[0].fname);
+	            	$("#bukh-2").data("score", res[0].score);
+	                $("#bukh-2").val(content);
+	                conp = "";
+	                $("#search-result2").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick3(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable3');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-3").data("bukhdugaar", res[0].id);
+	            	$("#bukh-3").data("bukhlname", res[0].lname);
+	            	$("#bukh-3").data("bukhfname", res[0].fname);
+	            	$("#bukh-3").data("score", res[0].score);	
+	                $("#bukh-3").val(content);
+	                conp = "";
+	                $("#search-result3").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick4(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable4');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-4").data("bukhdugaar", res[0].id);
+	            	$("#bukh-4").data("bukhlname", res[0].lname);
+	            	$("#bukh-4").data("bukhfname", res[0].fname);
+	            	$("#bukh-4").data("score", res[0].score);
+	                $("#bukh-4").val(content);
+	                conp = "";
+	                $("#search-result4").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick5(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable5');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-5").data("bukhdugaar", res[0].id);
+	            	$("#bukh-5").data("bukhlname", res[0].lname);
+	            	$("#bukh-5").data("bukhfname", res[0].fname);
+	            	$("#bukh-5").data("score", res[0].score);
+	                $("#bukh-5").val(content);
+	                conp = "";
+	                $("#search-result5").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick6(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable6');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-6").data("bukhdugaar", res[0].id);
+	            	$("#bukh-6").data("bukhlname", res[0].lname);
+	            	$("#bukh-6").data("bukhfname", res[0].fname);
+	            	$("#bukh-6").data("score", res[0].score);
+	                $("#bukh-6").val(content);
+	                conp = "";
+	                $("#search-result6").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick7(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable7');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-7").data("bukhdugaar", res[0].id);
+	            	$("#bukh-7").data("bukhlname", res[0].lname);
+	            	$("#bukh-7").data("bukhfname", res[0].fname);
+	            	$("#bukh-7").data("score", res[0].score);
+	                $("#bukh-7").val(content);
+	                conp = "";
+	                $("#search-result7").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick8(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable8');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-8").data("bukhdugaar", res[0].id);
+	            	$("#bukh-8").data("bukhlname", res[0].lname);
+	            	$("#bukh-8").data("bukhfname", res[0].fname);
+	            	$("#bukh-8").data("score", res[0].score);
+	                $("#bukh-8").val(content);
+	                conp = "";
+	                $("#search-result8").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick9(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable9');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-9").data("bukhdugaar", res[0].id);
+	            	$("#bukh-9").data("bukhlname", res[0].lname);
+	            	$("#bukh-9").data("bukhfname", res[0].fname);
+	            	$("#bukh-9").data("score", res[0].score);
+	                $("#bukh-9").val(content);
+	                conp = "";
+	                $("#search-result9").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+<script type="text/javascript">
+	function handleClick10(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable10');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxtablefantasymyteam',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-10").data("bukhdugaar", res[0].id);
+	            	$("#bukh-10").data("bukhlname", res[0].lname);
+	            	$("#bukh-10").data("bukhfname", res[0].fname);
+	            	$("#bukh-10").data("score", res[0].score);
+	                $("#bukh-10").val(content);
+	                conp = "";
+	                $("#search-result10").html(conp);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>

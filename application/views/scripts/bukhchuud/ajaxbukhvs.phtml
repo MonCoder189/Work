@@ -1,0 +1,63 @@
+<?php $this->layout()->setLayout('user'); ?>
+
+<div class="user_barildaan">
+	<table  class="table table-bordered">
+		<?php 
+
+			$glname = "Гоц";
+			$gfname = "мөргөсөн";
+		
+			for($i = 1; $i < 20; $i++)
+			{
+				foreach ($this->onoolt as $key => $val) {
+						if($val['davaa_num'] == $i)
+						{
+							if($val['bukh1_id'] == $this->bukh || $val['bukh2_id'] == $this->bukh)
+							{
+								if($val['bukh1_id'] == $this->bukh)
+								{
+									if($val['bukh2_id'] == 0)
+									{
+										echo '<tr><td>'.$i.'-н даваа</td><td>'.$val['bukh1_lname'].' '.$val['bukh1_fname'].'</td><td>'.$val['mekh'].'</td><td>'.$glname.' '.$gfname.'</td><td></td><tr>';
+									}
+									else
+									{
+										$neg = 0;
+										$hoyor = 0;
+										foreach ($this->bukhvs as $key => $on) {
+												if(($on['bukh1_id'] == $val['bukh1_id'] && $on['bukh2_id'] == $val['bukh2_id']) || ($on['bukh1_id'] == $val['bukh2_id'] && $on['bukh2_id'] == $val['bukh1_id']))
+												{
+													if($on['davsanbukh_id'] == $val['bukh1_id']) $neg++;
+													else $hoyor++;
+												}											
+										}
+										echo '<tr><td>'.$i.'-н даваа</td><td>'.$val['bukh1_lname'].' '.$val['bukh1_fname'].'</td><td>'.$val['mekh'].'</td><td>'.$val['bukh2_lname'].' '.$val['bukh2_fname'].'</td><td><a href="'.$this -> baseUrl().'/bukhchuud/ajaxbukhvs100/bukh1/'.$val['bukh1_id'].'/bukh2/'.$val['bukh2_id'].'">'.$neg.' : '.$hoyor.'</a></td><tr>';
+									}
+								}
+								else
+								{
+									if($val['bukh1_id'] == 0)
+									{	
+										echo '<tr><td>'.$i.'-н даваа</td><td>'.$val['bukh2_lname'].' '.$val['bukh2_fname'].'</td><td>'.$val['mekh'].'</td><td>'.$glname.' '.$gfname.'</td><td></td><tr>';	
+									}			
+									else
+									{
+										$neg = 0;
+										$hoyor = 0;
+										foreach ($this->bukhvs as $key => $on) {
+												if(($on['bukh1_id'] == $val['bukh1_id'] && $on['bukh2_id'] == $val['bukh2_id']) || ($on['bukh1_id'] == $val['bukh2_id'] && $on['bukh2_id'] == $val['bukh1_id']))
+												{
+													if($on['davsanbukh_id'] == $val['bukh2_id']) $neg++;
+													else $hoyor++;
+												}											
+										}
+										echo '<tr><td>'.$i.'-н даваа</td><td>'.$val['bukh2_lname'].' '.$val['bukh2_fname'].'</td><td>'.$val['mekh'].'</td><td>'.$val['bukh1_lname'].' '.$val['bukh1_fname'].'</td><td><a href="'.$this -> baseUrl().'/bukhchuud/ajaxbukhvs100/bukh1/'.$val['bukh2_id'].'/bukh2/'.$val['bukh1_id'].'">'.$neg.' : '.$hoyor.'</a></td><tr>';											
+									}					
+								}
+							}
+						}	
+				}
+			}
+		?>
+	</table>
+</div>

@@ -1,0 +1,41 @@
+form {
+	width: 100%;
+	margin-top: 0%;
+	margin-left: 0%;
+}
+dl {
+	display: table;
+	width: 100%;
+	background: rgba(255, 255, 255, 0.4);
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-align: center;
+	padding-top: 10px;
+}
+dl > dt {
+	width: 100%;
+}
+
+dl > dd {
+	margin-left: 10%;
+	width: 80%;
+	color: #555;
+}
+
+dl > dd > input {
+	width: 100%;
+	margin-top: 10px;
+}
+
+dl > dd > input[type="submit"] {
+	width: 100%;
+	margin-top: -10px;
+	margin-bottom: 20px;
+	background-color: #3276b1;
+	color: #fff;
+}
+
+dl > dd > select {
+	width: 100%;
+	height: 26px;
+}

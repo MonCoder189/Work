@@ -1,0 +1,42 @@
+<?php
+    $user = array(); $users = new Model_DbTable_Users();
+    $results = $users -> fetchAll($users -> select());
+    foreach ($results as $key => $value)
+    	$user[$value['id']] = $value['username'];
+    foreach ($this -> news as $val) {
+    	echo '<div class = "news-body">
+    			<div>
+    				<h2 style = "color: #428bca;font-family: helios">
+    					'.$val['title'].'
+    				</h2>';
+    				echo '<div>';
+		                $content  = $val['content'];
+		                $convert = "";
+		                $len = strlen($content); 
+		                for($i=0; $i < $len; $i++) {
+		                    if($content[$i] == '&' and $content[$i+1] == 'q' and $content[$i+2] == 'u' and $content[$i+3] == 'o' and $content[$i+4] == 't' and $content[$i+5] == ';') 
+		                    {
+		                        $i=$i+5; $convert.="\"";
+		                    }
+		                    else 
+		                    {
+		                        $convert.=$content[$i];
+		                    }
+		                }
+		                $content = $convert;
+    				echo $content;
+    				echo '</div>
+    			</div>
+    			<div class = "dis10"></div>
+    			<div>
+    				<span style = "font-weight:bold; color: #428bca">
+    					Нийтэлсэн : '.$user[$val['user_id']].' '.$val['date'].'
+    				</span>
+    			</div>
+    		</div>';
+    		echo '<div class = "dis10"></div>';
+	}
+	//$this->paginationControl($this->medee, 'Sliding', 'paginationFile.phtml');
+?>
+	
+  

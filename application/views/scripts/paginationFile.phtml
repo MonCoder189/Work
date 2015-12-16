@@ -1,0 +1,20 @@
+<div class="center">
+  <ul class="pagination">
+  	<?php 
+  		if (isset($this->previous)){
+  			echo '<li><a href="'.$this->url(array('page' => $this->previous)).'">&laquo;</a></li>';
+  		} else echo '<li class="disabled" ><a href="#">&laquo;</a></li>';
+  		
+  		foreach ($this->pagesInRange as $page){
+			if ($this->current != $page){
+				echo '<li><a href="'.$this->url(array('page' => $page)).'">'.$page.'</a></li>';
+			} else {
+				echo '<li class="active"><a href="#">'.$page.'</a></li>';
+			}
+		}
+		if (isset($this->next)){
+  			echo '<li><a href="'.$this->url(array('page' => $this->next)).'">&raquo;</a></li>';
+  		} else echo '<li class="disabled" ><a href="#">&raquo;</a></li>';
+  	?>  	
+  </ul>
+</div>

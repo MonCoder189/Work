@@ -1,0 +1,652 @@
+<?php $this->layout()->setLayout('user'); ?>
+
+<?php 
+	$role = Zend_Registry::get('role');
+	$cnt = 0;
+	$tmp = 0;
+	foreach ($this->gal as $key => $value) {
+		$cnt++;
+		$galid = $value['id'];
+	}
+	foreach ($this->score as $key => $value) {
+	    $tmp++;
+	}
+	$davaa_cnt = 0;
+	foreach ($this->davaa as $key => $value) {
+		$davaa_cnt++;
+	}
+	$davaa_tmp = 0;
+	foreach ($this->davaaduussan as $key => $value) {
+		$davaa_tmp++;
+	}
+	$is = $this -> is; 
+?>
+<div class = "user_header_contest_more">
+	<div id = "davaanumsave"></div>
+</div>
+<div class = "dis116"></div>
+
+			<!-- 								Бүртгүүлэх						-->
+			<?php if($is  == 'signup'){
+				echo '<ul class="nav nav-tabs">
+						<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'">Мэдээ мэдээлэл</a></li>
+			  			<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/rating">Чансаа</a></li>
+			  			<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/davaa">Даваанууд</a></li>
+			  			<li class = "active"><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/signup">Бүртгүүлэх</a></li>	
+			  			<li><a href="'.$this -> baseUrl().'/fantasy/contest">Буцах</a></li>
+					  </ul>'; ?>
+					  <div class = "dis116"></div>
+					<div class = "signup-body">
+<h4 style="color:#428bca">1-рт заалт. Тэмцээний хэлбэр:</h4>
+<p>Тэмцээн нь оролцогч Дэвжээ (гал) 10 бөхийг цолны үнэлгээнүүдийн нийлбэр нь 120-д багтаж байхаар өөрийн хүссэн байдлаар сонгоно. Мөн гараанд гарсан бөхчүүдэд "бонус" тооцно.</p>
+</p>Бөхчүүдийн цолны үнэлгээ урьдын адил:</p>
+Дархан аварга 30</br>
+Даян аварга 29</br>
+Далай аварга 28</br>
+Улсын аварга 27</br>
+Улсын арслан 25</br>
+Улсын гарьд 22</br>
+Улсын заан 19</br>
+Улсын харцага 16</br>
+Улсын начин 13</br>
+Аймгийн (цэргийн) арслан 10</br>
+Аймгийн (цэргийн) заан 9</br>
+Аймгийн (цэргийн) харцага 8</br>
+Аймгийн (цэргийн) начин 7 байна.</br>
+
+<h4 style="color:#428bca">2-р заалт. Галуудын оноо авах тухай:</h4>
+<p>Тухайн галын 10 бөхийн 7 нь гарааны (1-ээс 7 дахь) бөхчүүд, 3 нь сэлгээний (8-аас 10 дахь) бөхчүүд байна. Гарааны 7 бөх хүрээгүй тохиолдолд сэлгээний бөхчүүд галын эзний сонгосон дарааллын дагуу сэлгэгдэн орж гараанд багтана. Гараанд гарсан 7 хүртэлх бөх ҮБФ тэмцээний тусгай дүрмийн дагуу (тусгай дүрмийг ард хавсралтаар оруулав) тухайн өдрийн барилдаанд барилдсан амжилтаасаа хамаарч бонусаа тооцуулан оноогоо авна.</br> 
+Бонус бодох журам нь тухайн бөх өөрйн авсан оноо дээр нэмж тухан галын "гарааны":</br>
+1-р бөх өөрийн авсан онооны 50%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 150 болгож авна.</br>
+2-р бөх өөрийн авсан онооны 40%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 140 болгож авна.</br>
+3-р бөх өөрийн авсан онооны 30%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 130 болгож авна.</br>
+4-р бөх өөрийн авсан онооны 20%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 120 болгож авна.</br>
+5-р бөх өөрийн авсан онооны 10%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 110 болгож авна.</br>
+6 ба 7-р бөх бонус нэмж авалгүй өөрийн авсан оноогоороо дэвжээндээ туслана.</p>
+
+<h4 style="color:#428bca"> 3-р заалт. Тэмцээний нэг давааны дүгнэлт: </h4>
+<p>
+Тэмцээнд тооцохоор шийдсэн нэг барилдааныг 1 ДАВАА гэнэ. </br>
+1 давааны дараа "Уралдаант" төрлийн тэмцээний оноо, "Халз тулаан" төрлийн тэмцээний оноо гэсэн 2 дүн мэдээлэгдэнэ. </br>
+1 даваанд тухайн галын бөхчүүдийн авсан нийлбэр оноог тус давааны тухайн галын нийт оноо гэх бөгөөд тэдгээрийн нийлбэрээр уралдах тэмцээнийг "Уралдаант" төрлийн тэмцээн гэнэ.
+Гал бүр даваа бүрт өөр нэг галтай амлалтаар болон оноолтоор таарч тэмцэлдэх ба үүнийг "Халз тулаан" төрлийн тэмцээн гэнэ.	
+</p>
+
+<h4 style="color:#428bca"> 4-р заалт. Тэмцээний үргэлжлэх хугацаа:</h4>
+<p>
+Тэмцээн 2-р сарын 28-ны барилдаанаас эхлэн улсын баяр наадмыг дуустал үргэлжлэх ба энэ хооронд БӨ-д зохиогдсон барилдаанууд болон ЦЗ-ийн шийдвэрээр тэмцээнд тооцох болсон бусад барилдаан нэг бүрээр нэг нэг ДАВАА хийж үргэлжилнэ.
+</p>
+<h4 style="color:#428bca">5-р заалт. Ам авах:</h4>
+<p>
+Цолтой галууд цолны эрэмбийн дагуу өмнө нь таарч байгаагүй галыг амлана. 
+6-р тойрог дууссаны дараагаас буюу 7-р тойргоос эхлэн цолтой гал нь өөрөөсөө өндөр "Халз тулаан" төрлийн тэмцээний оноотой буюу эсвэл өөрөөсөө "Халз тулаан" төрлийн оноо нь 6-гаас ихгүй зөрүүтэй галыг амлана.
+Цолтой галд амлах боломжтой гал олдохгүй бол үлдсэн галуудаас хамгийн боломжтой галтай оноолтоор таарна.
+Барилдаан эхлэхээс 2 хоногийн өмнө заанаас доошгүй цолтой галууд цолны эрэмбийн дагуу амаа авах ба барилдаан эхлэхээс 1 хоногийн өмнө заанаас доош цолтой галууд цолны эрэмбийг дагуу амаа авна.
+Тухайн өдөр ам авах цагийн хуваарийг ард хавсралтаар оруулах ба өөрийнхөө ам авах цагт урд галууд ам авсан эсэхээс үл шалтгаалан цолтой гал амаа авч болно. Өөрийн ам авах цагаас хожимдсон гал нөхөж ам авч болох ба мэдээж амлагдаагүй үлдсэн галуудаас ам авна.
+</p>
+<h4 style="color:#428bca">6-р заалт. Оноолт гаргах:</h4>
+<p>
+Цолгүй бөгөөд амлагдаагүй галууд мөн тухайн тойрогт ам аваагүй галуудыг оноолтоор хооронд нь тааруулна. Тус галуудыг "Халз тулаан" төрлийн тэмцээний оноогоор нь буурахаар жагсаасны дараа:
+хамгийн эхний галыг өөртэй нь өмнө (3-р тэмцээнд) таарч байгаагүй, хамгийн эхний галтай тааруулна. Үлдсэн галуудаас хамгийн эхний галыг олж дээрх үйлдлийг давтан гүйцэтгэнэ. 
+Ингэхэд сүүл хэсэгт хоорондоо таарсан галууд тунаж үлдвэл тэдгээрийг хооронд нь дахин тааруулж болно.
+Тойрог бүрийн дүйзийг барилдан эхлэхээс өмнө "оноолт ба үр дүн" сэдэвт гаргана.
+</p>
+<h4 style="color:#428bca">7-р заалт. Солилцоо наймаа хийх:</h4>
+<p>
+Нэг гал дараах байдлаар бөхчүүдээ сольж болно. Үүнд:</br>
+128 бөхийн барилдаанд 2 бөх үнэгүй солино.</br>
+256 бөхийн барилдаанд 4 бөх үнэгүй солино.</br>
+Улсын баяр наадмаар 8 бөх үнэгүй солино.</br>
+бусад ЦЗ тохиолдолд санал хурааж шиднэ.</br>
+Тухайн тойрогт ашиглаагүй боломжоо дараагийн тойрогт ямар нэг байдлаар нөөцлөхгүй.
+Дээр зааснаас илүү олон тооны бөх соливол сольсон бөх дутамд тухайн давааны галын авсан онооноосоо 2000 оноо хасуулна.
+Солилцоо наймааг зөвхөн "сэлгээ, солилцоо" (шинэ галаа байгуулцгаая) сэдэвт хийнэ.
+Сүүлчийн бичлэгийг баримтлан тэмцээний дүнг бодно.</br>
+Эхний тойрогт шинэ галаа байгуулан оролцоход энэ заалт нөлөөлөхгүй.</br>
+<span style = "font-weight:bold">Сэлгээ солилцооны нэмэлт дүрэм</span></br>
+1. Сэлгээ солилцоог барилдаан эхлэхээс дор хаяж хоёр цаг-ын өмнө, нэг удаа л хийнэ.</br>
+2. хоёр цаг болон түүнээс дотогш хийсэн сэлгээг тооцохгүй бөгөөд уг галыг сэлгээ хийгээгүй гэж үзнэ..</br>
+3. Сэлгээ солилцоо хийсэн бичлэгтээ ямарваа нэг засвар хийхийг хориглох ба засвар хийсэн бол энэхүү дүрмийн шийтгэл Б дүрэмд-д заасны дагуу шийтгэл ногдуулна.</br>
+жич: Сэлгээ солилцоонд бөхийн нэрний үсэг, цол андуурах зэрэг оноонд үл нөлөөлөх санамсаргүй алдааг дахин шинэ бичлэг үйлдэх замаар засах боломжтой.</br>
+</p>
+
+<h4 style="color:#428bca"> 8-р заалт. Цол олгох тухай:</h4>
+<p>
+3-р Тэмцээн дуусахад "Уралдаант" төрлийн тэмцээний оноо "Халз тулаан" төрлийн тэмцээний оноо хоёрын "хэмжээст" нийлбэрээр (уралтаантыг оноог яаж халзруу хөрвүүлж байгаа томъёог ард хавсаргав) нь буурахаар жагсааж эхний 8 байрт шалгарсан галд:><br>
+1-р байранд шалгарсан галд АРСЛАН ЦОЛОНД дүйцэх цол<br>
+2-р байранд шалгарсан галд ГАРЬД ЦОЛОНД дүйцэх цол<br>
+3-р байранд шалгарсан галд ЗААН ЦОЛОНД дүйцэх цол<br>
+4 ба 5-р байранд шалгарсан галдуудад ХАРЦАГА ЦОЛОНД дүйцэх цол
+6, 7, 8-р байранд шалгарсан галдуудад НАЧИН ЦОЛОНД дүйцэх цол олгоно.
+Нэг цолын болзлыг 2 дахь удаагаа давтвал дээд цолыг нь дүйцүүлэн олгоно.
+</p>
+<h4 style="color:#428bca">9-р заалт. Хяналт ба шийтгэл:</h4>
+<p>
+	Барилдаан эхэлснээс дуусах хугацаанд галынхаа сүүлийн бичлэгт "засвар хийсэн" бол тухайн галыг булхайцсанд тооцож тухайн даваанд 0 оноо авсан гэж үзнэ. Өөр бусад зүйлээр маргаан гарвал гомдол гаргагч нь "хэлэлцүүлэг" сэдэвт цэцдийн зөвлөлд хандан санал хүсэлт гаргана. Үүнийг ЦЗ хэлэлцээд шийдвэрийг энэ сэдэвт нийтлэх ба "дүрэм, журам, ЦЗ-ийн шийдвэрээс" бусад зүйлийг энд бичихийг хатуу хориглож, цэвэрлэж байхыг ЦЗ-ийн гишүүн МОД Чуугийд даалгасугай...
+</p>
+<h4 style="color:#428bca"> Шийтгэл Б дүрэм</h4>
+<p>
+Өмнө бичсэн сэлгээ бөх сольсон бичлэгэнд ямар ч засвар хийсэн тухайн тойрогт тухайн оролцогчын сэлгээ хийх боломжтой байсан тоогоор хамгийн өндөр оноо авсан бөхийн оноог хасаж тооцно.</br>
+жич: бөхийн нэр, цол андуурах гэх мэтийн жижиг техникийн алдааг засварлах тохиолдолд шинэ бичлэг хийх нь зохимжтой.
+</p>
+
+<span style="color:#428bca;font-weight:bold">Дээрхи нөхцөлийг зөвшөөрч фантази тоглоомд оролцохыг хүсэж байна уу?</span>
+</br>
+<?php 
+	echo 
+	'<div class = "contest-footer">
+		<button id = "'.$galid.'" onclick = "orno(this.id)"class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#myModal"><span style="font-weight: bold">Зөвшөөрч байна</span></button>
+		<a href = "#"><button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#myModal"><span style="font-weight: bold">Зөвшөөрөхгүй</span></button></a>
+	</div>
+	<div class = "dis10"></div>';
+?>
+</div>
+<?php			}else{
+					if($is == "rating")
+					{
+						echo '<ul class="nav nav-tabs">
+							<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'">Мэдээ мэдээлэл</a></li>
+				  			<li class = "active"><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/rating">Чансаа</a></li>
+				  			<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/davaa">Даваанууд</a></li>';
+				  		if($cnt > 0 and $tmp == 0) echo '<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/signup">Бүртгүүлэх</a></li>';	
+				  		echo '<li><a href="'.$this -> baseUrl().'/fantasy/contest">Буцах</a></li>
+						  </ul>';
+						echo '<div class = "fantasy-index">'; 
+						echo '<table  class="table table-bordered">';
+						echo '<tr class = "success"><td><span style="font-weight:bold;color: #00aeef">Байр<span></td><td><span style="font-weight:bold;color: #00aeef">Дэвжээ<span></td><td><span style="font-weight:bold;color: #00aeef">Эзэн<span></td><td><span style="font-weight:bold;color: #00aeef">Нийт оноо<span></td><td><span style="font-weight:bold;color: #00aeef">Үр дүн<span></td></tr>';
+						$br = 0;
+						foreach ($this->rating as $key => $value) {
+							$gid = $value['galid'];
+							$galname = "";
+							$ezenid = 0;
+							$br++;
+							foreach ($this->galuud as $key => $val) {
+								if($val['id'] == $gid)
+								{
+									$galname = $val['name'];
+									$ezenid = $val['ezen_id'];
+									break;
+								}
+							}
+							$lname = "";
+							$fname = "";
+							foreach ($this->user as $key => $va) {
+								if($va['id'] == $ezenid)
+								{
+									$lname = $va['lastname'];
+									$fname = $va['firstname'];
+								}
+							}
+							if($br == 1)
+							{
+							echo '<tr><td>'.$br.'</td><td>'.$galname.'</td><td>'.$lname.' '.$fname.'</td><td>'.$value['total_score'].'</td><td><img src = "'.$this->baseUrl().'/images/alt.png"></img></td></tr>';
+							}
+							else
+							{
+								if($br == 2)
+								{
+							echo '<tr><td>'.$br.'</td><td>'.$galname.'</td><td>'.$lname.' '.$fname.'</td><td>'.$value['total_score'].'</td><td><img src = "'.$this->baseUrl().'/images/mungu.png"></img></td></tr>';
+								}
+								else
+								{
+									if($br == 3)
+									{
+							echo '<tr><td>'.$br.'</td><td>'.$galname.'</td><td>'.$lname.' '.$fname.'</td><td>'.$value['total_score'].'</td><td><img src = "'.$this->baseUrl().'/images/hurel.png"></img></td></tr>';
+									}
+									else
+									{
+							echo '<tr><td>'.$br.'</td><td>'.$galname.'</td><td>'.$lname.' '.$fname.'</td><td>'.$value['total_score'].'</td><td></td></tr>';										
+									}
+								}
+							}
+
+						}
+						echo '</table>';
+						echo '</div>';
+					}
+					else
+					{
+						if($is == "davaa")
+						{
+							echo '<ul class="nav nav-tabs">
+								<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'">Мэдээ мэдээлэл</a></li>
+					  			<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/rating">Чансаа</a></li>
+					  			<li class = "active"><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/davaa">Даваанууд</a></li>';
+					  		if($cnt > 0 and $tmp == 0) echo '<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/signup">Бүртгүүлэх</a></li>';	
+					  		echo '<li><a href="'.$this -> baseUrl().'/fantasy/contest">Буцах</a></li>
+							  </ul>';
+
+							echo '<div class = "fantasy-index">';
+							
+							if($role == 'admins' || $role == 'moderators')
+							{
+								echo '
+								<div class = "fantasy-davaa">
+								<span style="font-weight:bold;color: #00aeef">Сонгох боломжтой барилдаанууд</span>
+								<div class = "dis10"></div>
+								
+										<div class = "fantasy-davaa-body">
+												<select  id = "chooser" style = "width:100%">
+													<option value = "0">Бүх барилдаанууд</option>';
+													$db = Zend_Registry :: get('db');
+
+													$sql = $db->quoteInto('select * from barildaan',null);
+													$users = $db->query($sql)->fetchAll();
+
+													foreach ($users as $user){
+													    echo '<option value = "'.$user['id'].'">'.$user['name'].'</option>';
+													}
+													
+								echo '</select>
+										</div>
+										<div class = "rt1">
+											<button id = "'.$this->dugaar.'" onclick = "davaaadd(this.id)" class="btn btn-info btn-sm"><span style="font-weight: bold">Даваа нэмэх</span>
+											</button>  
+										</div>
+									  </div>';
+							}
+							echo '<div class = "dis10"></div>';
+							if($davaa_cnt > 0)
+							{
+								echo '<span style="font-weight:bold;color: #00aeef">Дусаагүй даваанууд</span>';
+								echo '<div class = "dis10"></div>';
+								echo '<table  class="table table-bordered">';
+								echo '<tr class = "success"><td><span style="font-weight:bold;color: #00aeef">#<span></td><td><span style="font-weight:bold;color: #00aeef">Даваа<span></td><td><span style="font-weight:bold;color: #00aeef">Огноо<span></td><td><span style="font-weight:bold;color: #00aeef">Үйлдэл<span></td></tr>';
+								$cnt = 0;
+								$dk = $davaa_tmp;
+								foreach ($this -> davaa as $key => $value) {
+					 				$cnt++; $dk++;
+									echo '<tr><td>'.$cnt.'</td><td>'.$value['date'].'</td><td>Даваа-'.$value['davaa_num'].'</td><td ><span id = "'.$value['davaa_num'].'" onclick = "score(this.id)" class = "mover">Фантази оноог тооцох</span></td></tr>';
+								}
+								echo '</table>';
+							}
+							if($davaa_tmp > 0)
+							{
+								$dis = $davaa_tmp;
+								echo '<div id ="duussandavaa"></div>';
+								echo '<span style="font-weight:bold;color: #00aeef">Дууссан даваанууд</span>';
+								
+								echo '<table  class="table table-bordered">';
+								echo '<div class = "dis10"></div>';
+								echo '<tr class = "success"><td><span style="font-weight:bold;color: #00aeef">#<span></td><td><span style="font-weight:bold;color: #00aeef">Даваа<span></td><td><span style="font-weight:bold;color: #00aeef">Огноо<span></td><td><span style="font-weight:bold;color: #00aeef">Үр дүн<span></td></tr>';
+								$cnt = 0;
+								foreach ($this -> davaaduussan as $key => $value) {
+									$cnt++;
+									echo '<tr><td>'.$cnt.'</td><td><span style = "color: black">Даваа-'.$value['davaa_num'].'</span></td><td>'.$value['date'].'</td><td><div id = "'.$value['davaa_num'].'" onclick = "davaaresult(this.id)"><span class = "mover">Дэлгэрэнгүй</span></div></td></tr>';
+									
+									$dis--;
+								}								
+								echo '</table>';
+							}
+							echo '</div>';
+						}
+						else
+						{
+							echo '<ul class="nav nav-tabs">
+								<li class = "active"><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'">Мэдээ мэдээлэл</a></li>
+					  			<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/rating">Чансаа</a></li>
+					  			<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/davaa">Даваанууд</a></li>';
+					  		if($cnt > 0 and $tmp == 0) echo '<li><a href="'.$this -> baseUrl().'/fantasy/contestmore/id/'.$this->dugaar.'/q/signup">Бүртгүүлэх</a></li>';	
+					  		echo '<li><a href="'.$this -> baseUrl().'/fantasy/contest">Буцах</a></li>
+							  </ul>';
+
+							
+			$cnt = 0;
+	        $val = 0;
+	        $bukhuud = array();
+	        $bukhs = new Model_DbTable_Users();
+	        $bukh = $bukhs -> fetchAll($bukhs -> select());
+	        foreach ($bukh as $key => $value) {
+	        	$bukhuud[$value['id']] = $value['username'];
+	        }
+	        foreach ($this -> medee as $val) {
+	        	echo '<div class = "news-body2">Нийтлэл</div>';	
+	        	echo '<div class = "news-body1">
+	        			<div>
+	        				<h2 style = "color: #428bca;font-family: helios">'.$val['title'].'</h2>
+	        				<div>';
+				                $content  = $val['content'];
+				                $convert = "";
+				                $len = strlen($content); 
+				                for($i=0; $i < $len; $i++) {
+				                    if($content[$i] == '&' and $content[$i+1] == 'q' and $content[$i+2] == 'u' and $content[$i+3] == 'o' and $content[$i+4] == 't' and $content[$i+5] == ';') 
+				                    {
+				                        $i=$i+5; $convert.="\"";
+				                    }
+				                    else 
+				                    {
+				                        $convert.=$content[$i];
+				                    }
+				                }
+				                $content = $convert;
+	        				echo $content;
+	        				echo '</div>
+	        			</div>
+	        			<div class = "dis10"></div>
+	        			<div><span style = "font-weight:bold; color: #428bca">Нийтэлсэн : '.$bukhuud[$val['uid']].' '.$val['date'].' </span></div>
+	        		</div>';
+	        		echo '<div class = "dis10"></div>';
+		}
+		echo $this->paginationControl($this->medee, 'Sliding', 'paginationFile.phtml');
+
+						}
+					}
+			} ?>
+
+
+<script type = "text/javascript">
+	function acceptScore() {
+		var davaa_num = $("#davaanumsave").data("davaanum");
+		var fantasy_id = <?php echo $this->dugaar; ?>;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxdavaascore',
+	            async: false,
+	            data: { davaa_num: davaa_num, fantasy_id: fantasy_id },
+	            success: function(res) {
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<script type = "text/javascript">
+	function score(x) {
+		$("#davaanumsave").data("davaanum", x);
+		$("#myScore").modal('show');
+	}
+</script>
+
+<script type = "text/javascript">
+	function davaaresult(id) {
+		var fantasy_id = <?php echo $this->dugaar; ?>;
+		var davaa_num = id;
+		$.ajax({	
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxdavaaresult',
+	            async: false,
+	            data: { davaa_num: davaa_num, fantasy_id: fantasy_id },
+	            success: function(res) {
+	            	content = "";
+	            	content += '<span style="font-weight:bold;color: red">'+res[0].davaa+' - р давааны дэлгэрэнгүй мэдээлэл</span>';
+	            	content += '<div class = "dis10"></div>';
+	            	content += '<table class = "table table-bordered">';
+	            	cnt = 0;
+	            	content += '<tr class = "success"><td><span style="font-weight:bold;color: #00aeef">Байр<span></td><td><span style="font-weight:bold;color: #00aeef">Галын нэр<span></td><td><span style="font-weight:bold;color: #00aeef">Галын эзэн<span></td><td><span style="font-weight:bold;color: #00aeef">Оноо<span></td></tr>';
+	            	len = res.length;
+	            	$("#myModal1").data("davaa", res[0].davaa);
+	            	for(i = 0; i < len; i++)
+	            	{
+	            		cnt++;
+	            		content += '<tr><td>'+cnt+'</td><td><span id = "'+res[i].galid+'" onclick = "teamview(this.id)" style = "cursor:pointer; color: #428bca">'+res[i].galname+'</span></td><td>'+res[i].username+'</td><td>'+res[i].score+'</td></tr>';
+	            	}
+	            	content += '</table>'; 
+	            	$("#duussandavaa").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<script type = "text/javascript">
+	function teamview(id) {
+		
+		var galid = id;
+		var fantasy_id = <?php echo $this->dugaar; ?>;
+		var davaa = $("#myModal1").data("davaa");
+		
+		$.ajax({	
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxteamview',
+	            async: false,
+	            data: { galid: galid, fantasy_id: fantasy_id, davaa: davaa },
+	            success: function(res) {
+	            	content = '';
+	            	content += '<table class = "table-bordered">';
+	            	content += '<tr class = "success"><td><span style="font-weight:bold;color: #00aeef">#<span></td><td><span style="font-weight:bold;color: #00aeef">Овог<span></td><td><span style="font-weight:bold;color: #00aeef">Нэр<span></td><td><span style="font-weight:bold;color: #00aeef">Аймаг<span></td><td><span style="font-weight:bold;color: #00aeef">Сум<span></td><td><span style="font-weight:bold;color: #00aeef">Цол<span></td><td><span style="font-weight:bold;color: #00aeef">Төрсөн огноо<span></td></tr>';
+				            	
+	            	content += '</table>';
+	            	$("#myModal1").modal('show');
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<script type = "text/javascript">
+	function davaaadd(id) {
+		var e = document.getElementById("chooser");
+		var barildaan_id = e.options[e.selectedIndex].value;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxfantasyactive',
+	            async: false,
+	            data: { id: id, barildaan_id: barildaan_id },
+	            success: function(res) {
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });		
+	}
+</script>
+
+<script type = "text/javascript">
+	function mover()
+	{
+		content = "";
+		content += '<span style = "color: green">Фантази оноог тооцох</span>';
+		$("#mover").html(content);
+	}
+</script>
+
+<script type = "text/javascript">
+	function mout()
+	{
+		alert('yes');
+		content = "";
+		content += '<span style = "color: black">Фантази оноог тооцох</span>';
+		$("#mover").html(content);
+	}
+</script>
+
+
+<script type = "text/javascript">
+	function orno(galid) {
+		var galid = galid;
+		var id = <?php echo $this->dugaar; ?>;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxcontestmoreorno',
+	            async: false,
+	            data: { id: id, galid: galid },
+	            success: function(res) {
+	            	window.location.reload(this);
+	            	//alert('yes');
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });			
+	}
+</script>
+
+<script type = "text/javascript">
+	function orohgui(id) {
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/fantasy/ajaxcontestmoreorohgui',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });	
+	}
+</script>
+
+
+<div id = "myModal1" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 style = "color:green" class="modal-title">Галын энэхүү давааны бүтэц бүрэлдэхүүн</h4>
+      </div>
+      <div id = "bukh-body1" class="modal-body">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id = "myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 style = "color:green" class="modal-title">Фантази тэмцээний давааны үндсэн мэдээлэл</h4>
+      </div>
+      <div id = "bukh-body" class="modal-body">
+      </div>
+      <div class="modal-footer">
+      	<div class = "mrgn10">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Болих</button>
+	        <button onclick = "zarah()" type="button" class="btn btn-primary">Хаах</button>
+    	</div>
+        <div class = "dis10"></div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<div id = "myScore" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 style = "color:green" class="modal-title">Энэхүү давааны галуудын фантази оноог тооцох хэсэг</h4>
+      </div>
+      <div id = "davaa-score" class="modal-body">
+
+<h4 style="color:#428bca">1-рт заалт. Тэмцээний хэлбэр:</h4>
+<p>Тэмцээн нь оролцогч Дэвжээ (гал) 10 бөхийг цолны үнэлгээнүүдийн нийлбэр нь 120-д багтаж байхаар өөрийн хүссэн байдлаар сонгоно. Мөн гараанд гарсан бөхчүүдэд "бонус" тооцно.</p>
+</p>Бөхчүүдийн цолны үнэлгээ урьдын адил:</p>
+Дархан аварга 30</br>
+Даян аварга 29</br>
+Далай аварга 28</br>
+Улсын аварга 27</br>
+Улсын арслан 25</br>
+Улсын гарьд 22</br>
+Улсын заан 19</br>
+Улсын харцага 16</br>
+Улсын начин 13</br>
+Аймгийн (цэргийн) арслан 10</br>
+Аймгийн (цэргийн) заан 9</br>
+Аймгийн (цэргийн) харцага 8</br>
+Аймгийн (цэргийн) начин 7 байна.</br>
+
+<h4 style="color:#428bca">2-р заалт. Галуудын оноо авах тухай:</h4>
+<p>Тухайн галын 10 бөхийн 7 нь гарааны (1-ээс 7 дахь) бөхчүүд, 3 нь сэлгээний (8-аас 10 дахь) бөхчүүд байна. Гарааны 7 бөх хүрээгүй тохиолдолд сэлгээний бөхчүүд галын эзний сонгосон дарааллын дагуу сэлгэгдэн орж гараанд багтана. Гараанд гарсан 7 хүртэлх бөх ҮБФ тэмцээний тусгай дүрмийн дагуу (тусгай дүрмийг ард хавсралтаар оруулав) тухайн өдрийн барилдаанд барилдсан амжилтаасаа хамаарч бонусаа тооцуулан оноогоо авна.</br> 
+Бонус бодох журам нь тухайн бөх өөрйн авсан оноо дээр нэмж тухан галын "гарааны":</br>
+1-р бөх өөрийн авсан онооны 50%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 150 болгож авна.</br>
+2-р бөх өөрийн авсан онооны 40%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 140 болгож авна.</br>
+3-р бөх өөрийн авсан онооны 30%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 130 болгож авна.</br>
+4-р бөх өөрийн авсан онооны 20%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 120 болгож авна.</br>
+5-р бөх өөрийн авсан онооны 10%-ийг өөрийн оноо дээрээ нэмж бонус хэлбэрээр авна. Ө.х 100 оноо авсан бол 110 болгож авна.</br>
+6 ба 7-р бөх бонус нэмж авалгүй өөрийн авсан оноогоороо дэвжээндээ туслана.</p>
+
+<h4 style="color:#428bca"> 3-р заалт. Тэмцээний нэг давааны дүгнэлт: </h4>
+<p>
+Тэмцээнд тооцохоор шийдсэн нэг барилдааныг 1 ДАВАА гэнэ. </br>
+1 давааны дараа "Уралдаант" төрлийн тэмцээний оноо, "Халз тулаан" төрлийн тэмцээний оноо гэсэн 2 дүн мэдээлэгдэнэ. </br>
+1 даваанд тухайн галын бөхчүүдийн авсан нийлбэр оноог тус давааны тухайн галын нийт оноо гэх бөгөөд тэдгээрийн нийлбэрээр уралдах тэмцээнийг "Уралдаант" төрлийн тэмцээн гэнэ.
+Гал бүр даваа бүрт өөр нэг галтай амлалтаар болон оноолтоор таарч тэмцэлдэх ба үүнийг "Халз тулаан" төрлийн тэмцээн гэнэ.	
+</p>
+
+<h4 style="color:#428bca"> 4-р заалт. Тэмцээний үргэлжлэх хугацаа:</h4>
+<p>
+Тэмцээн 2-р сарын 28-ны барилдаанаас эхлэн улсын баяр наадмыг дуустал үргэлжлэх ба энэ хооронд БӨ-д зохиогдсон барилдаанууд болон ЦЗ-ийн шийдвэрээр тэмцээнд тооцох болсон бусад барилдаан нэг бүрээр нэг нэг ДАВАА хийж үргэлжилнэ.
+</p>
+<h4 style="color:#428bca">5-р заалт. Ам авах:</h4>
+<p>
+Цолтой галууд цолны эрэмбийн дагуу өмнө нь таарч байгаагүй галыг амлана. 
+6-р тойрог дууссаны дараагаас буюу 7-р тойргоос эхлэн цолтой гал нь өөрөөсөө өндөр "Халз тулаан" төрлийн тэмцээний оноотой буюу эсвэл өөрөөсөө "Халз тулаан" төрлийн оноо нь 6-гаас ихгүй зөрүүтэй галыг амлана.
+Цолтой галд амлах боломжтой гал олдохгүй бол үлдсэн галуудаас хамгийн боломжтой галтай оноолтоор таарна.
+Барилдаан эхлэхээс 2 хоногийн өмнө заанаас доошгүй цолтой галууд цолны эрэмбийн дагуу амаа авах ба барилдаан эхлэхээс 1 хоногийн өмнө заанаас доош цолтой галууд цолны эрэмбийг дагуу амаа авна.
+Тухайн өдөр ам авах цагийн хуваарийг ард хавсралтаар оруулах ба өөрийнхөө ам авах цагт урд галууд ам авсан эсэхээс үл шалтгаалан цолтой гал амаа авч болно. Өөрийн ам авах цагаас хожимдсон гал нөхөж ам авч болох ба мэдээж амлагдаагүй үлдсэн галуудаас ам авна.
+</p>
+<h4 style="color:#428bca">6-р заалт. Оноолт гаргах:</h4>
+<p>
+Цолгүй бөгөөд амлагдаагүй галууд мөн тухайн тойрогт ам аваагүй галуудыг оноолтоор хооронд нь тааруулна. Тус галуудыг "Халз тулаан" төрлийн тэмцээний оноогоор нь буурахаар жагсаасны дараа:
+хамгийн эхний галыг өөртэй нь өмнө (3-р тэмцээнд) таарч байгаагүй, хамгийн эхний галтай тааруулна. Үлдсэн галуудаас хамгийн эхний галыг олж дээрх үйлдлийг давтан гүйцэтгэнэ. 
+Ингэхэд сүүл хэсэгт хоорондоо таарсан галууд тунаж үлдвэл тэдгээрийг хооронд нь дахин тааруулж болно.
+Тойрог бүрийн дүйзийг барилдан эхлэхээс өмнө "оноолт ба үр дүн" сэдэвт гаргана.
+</p>
+<h4 style="color:#428bca">7-р заалт. Солилцоо наймаа хийх:</h4>
+<p>
+Нэг гал дараах байдлаар бөхчүүдээ сольж болно. Үүнд:</br>
+128 бөхийн барилдаанд 2 бөх үнэгүй солино.</br>
+256 бөхийн барилдаанд 4 бөх үнэгүй солино.</br>
+Улсын баяр наадмаар 8 бөх үнэгүй солино.</br>
+бусад ЦЗ тохиолдолд санал хурааж шиднэ.</br>
+Тухайн тойрогт ашиглаагүй боломжоо дараагийн тойрогт ямар нэг байдлаар нөөцлөхгүй.
+Дээр зааснаас илүү олон тооны бөх соливол сольсон бөх дутамд тухайн давааны галын авсан онооноосоо 2000 оноо хасуулна.
+Солилцоо наймааг зөвхөн "сэлгээ, солилцоо" (шинэ галаа байгуулцгаая) сэдэвт хийнэ.
+Сүүлчийн бичлэгийг баримтлан тэмцээний дүнг бодно.</br>
+Эхний тойрогт шинэ галаа байгуулан оролцоход энэ заалт нөлөөлөхгүй.</br>
+<span style = "font-weight:bold">Сэлгээ солилцооны нэмэлт дүрэм</span></br>
+1. Сэлгээ солилцоог барилдаан эхлэхээс дор хаяж хоёр цаг-ын өмнө, нэг удаа л хийнэ.</br>
+2. хоёр цаг болон түүнээс дотогш хийсэн сэлгээг тооцохгүй бөгөөд уг галыг сэлгээ хийгээгүй гэж үзнэ..</br>
+3. Сэлгээ солилцоо хийсэн бичлэгтээ ямарваа нэг засвар хийхийг хориглох ба засвар хийсэн бол энэхүү дүрмийн шийтгэл Б дүрэмд-д заасны дагуу шийтгэл ногдуулна.</br>
+жич: Сэлгээ солилцоонд бөхийн нэрний үсэг, цол андуурах зэрэг оноонд үл нөлөөлөх санамсаргүй алдааг дахин шинэ бичлэг үйлдэх замаар засах боломжтой.</br>
+</p>
+
+<h4 style="color:#428bca"> 8-р заалт. Цол олгох тухай:</h4>
+<p>
+3-р Тэмцээн дуусахад "Уралдаант" төрлийн тэмцээний оноо "Халз тулаан" төрлийн тэмцээний оноо хоёрын "хэмжээст" нийлбэрээр (уралтаантыг оноог яаж халзруу хөрвүүлж байгаа томъёог ард хавсаргав) нь буурахаар жагсааж эхний 8 байрт шалгарсан галд:><br>
+1-р байранд шалгарсан галд АРСЛАН ЦОЛОНД дүйцэх цол<br>
+2-р байранд шалгарсан галд ГАРЬД ЦОЛОНД дүйцэх цол<br>
+3-р байранд шалгарсан галд ЗААН ЦОЛОНД дүйцэх цол<br>
+4 ба 5-р байранд шалгарсан галдуудад ХАРЦАГА ЦОЛОНД дүйцэх цол
+6, 7, 8-р байранд шалгарсан галдуудад НАЧИН ЦОЛОНД дүйцэх цол олгоно.
+Нэг цолын болзлыг 2 дахь удаагаа давтвал дээд цолыг нь дүйцүүлэн олгоно.
+</p>
+<h4 style="color:#428bca">9-р заалт. Хяналт ба шийтгэл:</h4>
+<p>
+	Барилдаан эхэлснээс дуусах хугацаанд галынхаа сүүлийн бичлэгт "засвар хийсэн" бол тухайн галыг булхайцсанд тооцож тухайн даваанд 0 оноо авсан гэж үзнэ. Өөр бусад зүйлээр маргаан гарвал гомдол гаргагч нь "хэлэлцүүлэг" сэдэвт цэцдийн зөвлөлд хандан санал хүсэлт гаргана. Үүнийг ЦЗ хэлэлцээд шийдвэрийг энэ сэдэвт нийтлэх ба "дүрэм, журам, ЦЗ-ийн шийдвэрээс" бусад зүйлийг энд бичихийг хатуу хориглож, цэвэрлэж байхыг ЦЗ-ийн гишүүн МОД Чуугийд даалгасугай...
+</p>
+<h4 style="color:#428bca"> Шийтгэл Б дүрэм</h4>
+<p>
+Өмнө бичсэн сэлгээ бөх сольсон бичлэгэнд ямар ч засвар хийсэн тухайн тойрогт тухайн оролцогчын сэлгээ хийх боломжтой байсан тоогоор хамгийн өндөр оноо авсан бөхийн оноог хасаж тооцно.</br>
+жич: бөхийн нэр, цол андуурах гэх мэтийн жижиг техникийн алдааг засварлах тохиолдолд шинэ бичлэг хийх нь зохимжтой.
+</p>
+      </div>
+      <div class="modal-footer">
+      	<div class = "mrgn10">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Болих</button>
+	        <button type="button" onclick = "acceptScore()" class="btn btn-primary">Фантази оноог тооцоолох</button>
+    	</div>
+        <div class = "dis10"></div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,22 @@
+	 <?php
+	        $role = Zend_Registry::get('role');
+	        if ($role == 'admins' || $role == 'moderators') {
+	            echo '<div class = "rt"><a class="glyphicon glyphicon-plus-sign" href = "'.$this -> baseUrl().'/aimag/add"></a></div>';
+	        }
+	?>
+    <div class = "dis10"></div>
+    <div class = "dis11">
+    <table  class="table table-bordered">
+	    <?php
+	        $val = 0;
+	        echo '<tr class="success"><td>Монгол улсын аймгууд</td></tr>';
+	        foreach ($this -> aimag as $val) {
+	                echo '<tr><td>'.$val['name'].'<div class = "rt">
+
+			<a href="'.$this -> baseUrl().'/aimag/edit/id/'.$val['id'].'"><span class="glyphicon glyphicon-edit"></span></a>&nbsp&nbsp
+			<a href="'.$this -> baseUrl().'/aimag/remove/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove"></span></a>
+	                </div></td></tr>';
+	        }        
+	    ?> 
+    </table>
+	</div>

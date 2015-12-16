@@ -1,0 +1,21 @@
+	 <?php
+	        $role = Zend_Registry::get('role');
+	        if ($role == 'admins' || $role == 'moderators') {
+	            echo '<div class = "rt"><a class="glyphicon glyphicon-plus-sign" href = "'.$this -> baseUrl().'/tsol/add"></a></div>';
+	        }
+	?>
+    <div class = "dis10"></div>
+    <div class = "dis11">
+    <table  class="table table-bordered">
+	    <?php
+	        $val = 0;
+	        echo '<tr class="success"><td>Монгол бөхийн цол</td><td>Цолны оноонууд</td></tr>';
+	        foreach ($this -> tsol as $val) {
+	                echo '<tr><td>'.$val['name'].'</td><td>'.$val['score'].'<div class = "rt11">
+					<a href="'.$this -> baseUrl().'/tsol/edit/id/'.$val['id'].'"><span class="glyphicon glyphicon-edit"></span></a>&nbsp&nbsp
+					<a href="'.$this -> baseUrl().'/tsol/delete/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove"></span></a>
+			                </div></td></tr>';
+	        }        
+	    ?> 
+    </table>
+	</div>

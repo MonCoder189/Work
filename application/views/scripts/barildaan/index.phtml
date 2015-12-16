@@ -1,0 +1,65 @@
+	 <?php
+	        $role = Zend_Registry::get('role');
+	        if ($role == 'admins' || $role == 'moderators') {
+	            echo '<div class = "rt"><a class="glyphicon glyphicon-plus-sign" href = "'.$this -> baseUrl().'/barildaan/add"></a></div>';
+	        }
+	?>
+    <div class = "dis10"></div>
+
+    <div class = "dis11">
+   	<?php
+   				$cnt = 0;
+	    		foreach ($this->medee1 as $key => $val) {
+	    			$cnt++;
+	    		}
+	    		if($cnt > 0)
+	    		{
+	    			echo '<span style="color:green;	font-weight:bold">Удахгүй зохиогдох барилдаанууд</span>';
+	    			echo '<div class = "dis10"></div>';	
+				    echo '<table  class="table table-bordered">';
+					    		echo '<tr class = "success"><td>Барилдааны нэр</td><td>Зохиогдох газар</td><td>Огноо</td><td>Бөхийн тоо</td></tr>';
+					    		foreach ($this->medee1 as $key => $val) {
+					                echo '<tr><td>
+					                <a href="'.$this -> baseUrl().'/barildaan/more/id/'.$val['id'].'">'.$val['name'].'</a>';
+					                if ($role == 'admins' || $role == 'moderators') {
+							                echo '<div class = "rt1">
+											<a href="'.$this -> baseUrl().'/barildaan/edit/id/'.$val['id'].'"><span class="glyphicon glyphicon-edit"></span></a>&nbsp&nbsp
+											<a href="'.$this -> baseUrl().'/barildaan/delete/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove"></span></a>
+							                </div>';
+					            	}
+					                echo '</td>';
+									echo '<td>'.$val['location'].'</td>';	
+									echo '<td>'.$val['date'].'</td>';
+									echo '<td>'.$val['bukh_number'].'</td>';            	
+					                echo '</tr>';
+					    		}
+				    echo '</table>';
+				}
+    ?>
+</div>
+
+    <div class = "dis11">
+    <table  class="table table-bordered">
+	    <?php
+	    	echo '<tr class = "success"><td>Барилдааны нэр</td><td>Зохиогдох газар</td><td>Огноо</td><td>Бөхийн тоо</td></tr>';
+	        $val = 0;
+	        foreach ($this -> medee as $val) {
+
+	                echo '<tr><td>
+	                <a href="'.$this -> baseUrl().'/barildaan/more/id/'.$val['id'].'">'.$val['name'].'</a>';
+	                if ($role == 'admins' || $role == 'moderators') {
+			                echo '<div class = "rt1">
+							<a href="'.$this -> baseUrl().'/barildaan/edit/id/'.$val['id'].'"><span class="glyphicon glyphicon-edit"></span></a>&nbsp&nbsp
+							<a href="'.$this -> baseUrl().'/barildaan/delete/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove"></span></a>
+			                </div>';
+	            	}
+	                echo '</td>';
+					echo '<td>'.$val['location'].'</td>';	
+					echo '<td>'.$val['date'].'</td>';
+					echo '<td>'.$val['bukh_number'].'</td>';            	
+	                echo '</tr>';
+	        }        
+	    ?> 
+    </table>
+    <?php echo $this->paginationControl($this->medee, 'Sliding', 'paginationFile.phtml'); ?>
+	</div>

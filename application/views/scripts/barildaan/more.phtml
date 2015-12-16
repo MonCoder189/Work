@@ -1,0 +1,1265 @@
+<?php
+	foreach ($this -> barildaan as $key => $val) {
+		$name = $val['name'];
+		$active = $val['active'];
+	}
+	$role = Zend_Registry::get('role');
+
+	echo '<h4>'.$name.'<h4>';
+
+	/*							duussan barildaan ehlel 				*/
+	if($active == 2)
+	{
+						$ans = $this->code;
+						$bukh_lname = 0;
+						$bukh_fname = 0;
+						$glname = "Гоц";
+						$gfname = "мөргөсөн";
+ 						for($i = 1; $i < $ans; $i++)
+						{
+							echo '<div style="text-align:center,color:blue,font-weight:bold">Үндэсний бөхийн барилдааны '.$i.'-н даваа</div>';
+							echo '<table  class="table table-bordered">';
+							echo '<table  class="table table-bordered">';
+							echo '<tr class = "success"><td><span style="font-weight:bold;">Баруун жигүүрээс<span></td><td><span style="font-weight:bold;">Мэх</span></td><td><span style="font-weight:bold;">Зүүн жигүүрээс<span></td></tr>';
+							foreach ($this->onoolt as $key => $val) {
+					    		foreach ($this->bukh as $key => $bukh) {
+					            	if($bukh['id'] == $val['bukh1_id'])
+					            	{ 
+					            		$bukh1_lname = $bukh['lname'];
+					            		$bukh1_fname = $bukh['fname'];
+					        		}
+					            	if($bukh['id'] == $val['bukh2_id'])
+					            	{ 
+					            		$bukh2_lname = $bukh['lname'];
+					            		$bukh2_fname = $bukh['fname'];
+					        		}				        		
+					        	}
+					        	if($val['davaa_num'] == $i)
+					        	{
+					        		if($val['davsanbukh_id'] == $val['bukh1_id'])
+					        		{
+					        			if(($i + 1) == $ans)
+					        			{
+					        				$bukh_lname = $bukh1_lname;
+					        				$bukh_fname = $bukh1_fname;
+					        			}
+					        			if($val['bukh1_id'] == 0)
+					        			{
+					        					echo '<tr ><td class = "success">'.$glname.' '.$gfname.' </td><td> '.$val['mekh'].'</td><td class = "danger">'.$bukh2_lname.' '.$bukh2_fname.'</td></tr>';	
+					        			}
+					        			else
+					        			{
+					        				if($val['bukh2_id'] == 0)
+					        				{
+					        					echo '<tr ><td class = "success">'.$bukh1_lname.' '.$bukh1_fname.' </td><td> '.$val['mekh'].'</td><td class = "danger">'.$glname.' '.$gfname.'</td></tr>';       
+					        				}
+					        				else
+					        				{
+					        					echo '<tr ><td class = "success">'.$bukh1_lname.' '.$bukh1_fname.' </td><td> '.$val['mekh'].'</td><td class = "danger">'.$bukh2_lname.' '.$bukh2_fname.'</td></tr>';					        
+					        				}
+					        			}
+					        		}
+					        		else
+					        		{
+					        			if(($i + 1) == $ans)
+					        			{
+					        				$bukh_lname = $bukh2_lname;
+					        				$bukh_fname = $bukh2_fname;
+					        			}					        			
+					        			if($val['bukh1_id'] == 0)
+					        			{
+					        					echo '<tr ><td class = "danger">'.$glname.' '.$gfname.' </td><td> '.$val['mekh'].'</td><td class = "success">'.$bukh2_lname.' '.$bukh2_fname.'</td></tr>';	
+					        			}
+					        			else
+					        			{
+					        				if($val['bukh2_id'] == 0)
+					        				{
+					        					echo '<tr ><td class = "danger">'.$bukh1_lname.' '.$bukh1_fname.' </td><td> '.$val['mekh'].'</td><td class = "success">'.$glname.' '.$gfname.'</td></tr>';       
+					        				}
+					        				else
+					        				{
+					        					echo '<tr ><td class = "danger">'.$bukh1_lname.' '.$bukh1_fname.' </td><td> '.$val['mekh'].'</td><td class = "success">'.$bukh2_lname.' '.$bukh2_fname.'</td></tr>';					        
+					        				}
+					        			}	
+					        		}
+					        	}						        	        		
+				    		}							
+							echo '</table>';
+						}		
+						echo '<p>Хүчит бөхийн барилдаанд '.$bukh_lname.' '.$bukh_fname.' түрүүлж наадамчин олноо баясгаллаа.</p>';
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////
+	else
+//////////////////////////////////////////////////////////////////////////////////////////////
+	if($active == 0)
+	{
+		if($role == 'admins' || $role == "moderators")
+		{
+			echo '<div class = "barildaan_body"><div class="barildaan_search">
+				<span>
+					<input placeholder="Бөх хайх" type="text" utga = "" id = "bukh-search" class = "form-control"></input>
+				</span>
+			</div>
+			<div class="barildaan_control">
+				<button id = "bukhadd" class="btn btn-info btn-sm" onclick="bukhadd(this);" type="button"><span style="font-weight: bold">бөх бүртгэх</span></button>
+				
+				<button id = "bukhadd" class="btn btn-info btn-sm" onclick="pagereload(this);" type="button"><span style="font-weight: bold" ">барилдаан эхлүүлэх</span></button>
+			</div>
+			</div>
+
+			<div id = "search-result"></div>';
+
+	 		echo '<table  class="table table-bordered">';
+	 		$cnt = 0;
+	 		foreach ($this->burtgel as $key => $val) {
+	 			$cnt++;
+	 		}
+		    echo '<tr class = "success"><td><span style="font-weight:bold;">Одоогоор ( '.$cnt.' ) бөх барилдаанд бүртгүүлсэн байна.<span></td></tr>';
+		    foreach ($this->burtgel as $key => $val) {
+		    		foreach ($this->bukh as $key => $bukh) {
+		    			if($bukh['id'] == $val['bukh_id'])
+		    			{
+		    				$fname = $bukh['fname'];
+		    				$lname = $bukh['lname'];
+		    				$bukhuri = $bukh['uri'];
+		    			}
+		    		}
+		            echo '<tr><td>
+		                <img class="img-thumbnail" src ="'.$this -> baseUrl().'/'.$bukhuri.'" height="50px" width="50px" alt="oldsongui!"></img>
+		                &nbsp&nbsp&nbsp&nbsp
+		                <span style = "color:#428bca"; >'.$lname.'</span>&nbsp&nbsp
+		                <a href="'.$this -> baseUrl().'/bukhchuud/page/id/'.$val['bukh_id'].'"><span style = "color:#428bca"; >'.$fname.'</span></a>&nbsp&nbsp';
+		            echo '</td></tr>';
+	    	}
+    		echo '</table>';
+    	}
+	}
+
+	//ehleegui barildaanii tugsgul
+
+	/*							Одоо энэхүү барилдаан эхэлж байна. 						*/
+
+	//Ug barildaan ehelsen baina
+//////////////////////////////////////////////////////////////////////////////////////////////
+	else
+	{
+		//barildaan ehelsen baina
+		foreach ($this -> barildaan as $key => $value) {
+			$dawaa_id = $value['davaa_id'];
+			$dawaa_active = $value['davaa_active']; 
+		}
+		/*				ene dawaanii onooltiig hiij duusaagui bna 						*/
+		if($dawaa_active == 0)
+		{
+			/*								нэгийн даваа 									*/
+			if($dawaa_id == 1)
+			{
+				echo '<h4>Бөхийн барилдааны '.$dawaa_id.'-н давааны оноолт үүсгэх</h4>';
+
+				$cnt_burtgel = 0;
+				foreach ($this->burtgel as $key => $val) {
+					$cnt_burtgel++;
+				}
+				if($cnt_burtgel == 0)
+				{
+					echo '<button id="bukhadd" class="btn btn-info btn-sm" onclick="start_davaa_neg(this);" type="button"><span style="font-weight: bold" "="">барилдааны 1-н давааг эхлүүлэх</span></button>';
+					echo '<div class = "dis10"></div>';
+				}
+				else
+				{
+					echo '<div class = "barildaan_body">
+
+					<div class="barildaan_search1">
+						<div class="barildaan_search1_1">
+							<span>
+								<input placeholder="Баруун жигүүрээс" type="text" utga = "" id = "bukh-search1" class = "form-control" value=""></input>
+							</span>
+						</div>
+						<div class="barildaan_search1_2">
+							<span>
+								<input placeholder="Зүүн жигүүрээс" type="text" utga = "" id = "bukh-search2" class = "form-control" value=""></input>
+							</span>
+						</div>
+					</div>
+					
+					<div class="barildaan_control1">
+						<span>
+							<button id = "bukhadd" class="btn btn-info btn-sm" onclick="onoolt_davaa_neg(this);" type="button"><span style="font-weight: bold" ">барилдуулъя</span></button>
+						</span>
+					</div>
+					</div>';				
+					echo '<div id = "search-result1"></div>';					
+				}
+				$cnt = 0;
+				foreach ($this->onoolt as $key => $value) {
+					$cnt++;
+				}
+				if($cnt > 0)
+				{
+					$glname = "Гоц";
+					$gfname = "мөргөсөн";
+					echo '<table  class="table table-bordered">';
+					echo '<tr class = "success"><td><span style="font-weight:bold;">Баруун жигүүрээс<span></td><td><span style="font-weight:bold;">Зүүн жигүүрээс<span></td><td><span style="font-weight:bold;">Үйлдэл</span></td></tr>';
+				    foreach ($this->onoolt as $key => $val) {
+				    		foreach ($this->bukh as $key => $bukh) {
+				            	if($bukh['id'] == $val['bukh1_id'])
+				            	{ 
+				            		$bukh1_lname = $bukh['lname'];
+				            		$bukh1_fname = $bukh['fname'];
+				        		}
+				            	if($bukh['id'] == $val['bukh2_id'])
+				            	{ 
+				            		$bukh2_lname = $bukh['lname'];
+				            		$bukh2_fname = $bukh['fname'];
+				        		}				        		
+				        	}
+				        	if($val['bukh1_id'] == 0)
+				        	{
+				        			echo '<tr><td>'.$glname.' '.$gfname.'</td><td>'.$bukh2_lname.' '.$bukh2_fname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';
+				        	}
+				        	else
+				        	{
+				        		if($val['bukh2_id'] == 0)
+				        		{
+				        			echo '<tr><td>'.$bukh1_lname.' '.$bukh1_fname.'</td><td>'.$glname.' '.$gfname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';				        			
+				        		}
+				        		else
+				        		{
+				        			echo '<tr><td>'.$bukh1_lname.' '.$bukh1_fname.'</td><td>'.$bukh2_lname.' '.$bukh2_fname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';
+				        		}
+				        	}
+				    }
+				    echo '</table>';					
+				}
+				if($cnt_burtgel > 1)
+				{
+					echo '<table  class="table table-bordered">';
+					echo '<tr class = "success"><td><span style="font-weight:bold;">Бөхийн барилдааны '.$dawaa_id.' даваанд барилдах бөхчүүд.<span></td></tr>';
+				    foreach ($this->burtgel as $key => $val) {
+				    		foreach ($this->bukh as $key => $bukh) {
+				    			if($bukh['id'] == $val['bukh_id'])
+				    			{
+				    				$fname = $bukh['fname'];
+				    				$lname = $bukh['lname'];
+				    				$bukhuri = $bukh['uri'];
+				    			}
+				    		}
+				            echo '<tr><td>
+				                <img class="img-thumbnail" src ="'.$this -> baseUrl().'/'.$bukhuri.'" height="50px" width="50px" alt="oldsongui!"></img>
+				                &nbsp&nbsp&nbsp&nbsp
+				                <span style = "color:#428bca"; >'.$lname.'</span>&nbsp&nbsp
+				                <a href="'.$this -> baseUrl().'/bukhchuud/page/id/'.$val['bukh_id'].'"><span style = "color:#428bca"; >'.$fname.'</span></a>&nbsp&nbsp';
+				            echo '</td></tr>';
+				    }
+				    echo '</table>';
+				}	
+				else
+				{
+					//gots murgunu
+					if($cnt_burtgel == 1)
+					{
+						//end uildel baina
+
+						foreach ($this->burtgel as $key => $val) {
+							$bk_id = $val['bukh_id'];	
+						}
+						$bkk = new Model_DbTable_Bukh();
+						$bkv = $bkk -> fetchAll($bkk -> select() -> where('id = '.$bk_id));
+						foreach ($bkv as $key => $value) {
+							$bk_lname = $value['lname'];
+							$bk_fname = $value['fname'];
+						}
+						$ts = 0;
+						$tk = 1;
+						$mekhg = 'Барилдаагүй';
+						$onooltp = new Model_DbTable_Onoolt();
+						$onooltp -> insert(array('barildaan_id' => $this->dugaar,
+						'bukh1_id' => $bk_id,
+						'bukh2_id' =>  $ts, 
+						'davaa_num' => $tk,
+						'davsanbukh_id' => $bk_id, 
+						'mekh' => $mekhg,
+						'bukh1_lname' => $bk_lname,
+						'bukh1_fname' => $bk_fname
+						));	
+						$brtgl = new Model_DbTable_Burtgel();
+						$brtgl -> delete('bukh_id = '.$bk_id);	?>
+
+						<script>
+						window.location.reload(this);
+						</script>
+
+						<?php
+					}
+					else
+					{
+						echo '<div class="alert alert-success alert-dismissable">
+					  			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					  			Энэхүү барилдааны 1-н давааг эхлүүлэх боломжтой бололоо.
+						</div>';
+					}
+				}
+			}
+			/* 						Нэгээс дээших даваа эхэлж байна.			 		*/
+			//////////////////////////////////////////////////////////////////////////////
+			else
+			{
+				$ans = $dawaa_id;
+				$num = 0;
+				$tmp = 0;
+				$bukhsp_id = 0;
+				foreach ($this->bukh as $key => $bukh) 
+				{
+					$tp = 0;
+					foreach ($this->onoolt as $key => $value) 
+					{
+								if($value['davaa_num'] == ($ans - 1))
+								{
+									if($value['davsanbukh_id'] == $bukh['id'])
+										$tp++;
+					    		}
+					    		if($value['davaa_num'] == $ans)
+								{
+									if($value['bukh1_id'] == $bukh['id'] || $value['bukh2_id'] == $bukh['id'])
+										$tp++;
+					    		}
+					}
+					if($tp == 1)
+					{
+					            $num++;
+					            $bukhsp_id = $bukh['id'];
+					            $bukhsp_lname = $bukh['lname'];
+					            $bukhsp_fname = $bukh['fname'];
+					}
+					if($tp == 2)
+					{
+						$tmp = 1;
+					}
+				}
+				/////////////////////////////////////////////////////////////////////////	
+				if($num == 0)
+				{
+						$ans = $dawaa_id;
+						$cnt = 0;
+						foreach ($this->onoolt as $key => $value) 
+						{
+							if($value['davaa_num'] == $ans) $cnt++;
+						}
+						if($cnt > 0)
+						{
+							$glname = "Гоц";
+							$gfname = "мөргөсөн";
+							echo '<table  class="table table-bordered">';
+							echo '<tr class = "success"><td><span style="font-weight:bold;">Баруун жигүүрээс<span></td><td><span style="font-weight:bold;">Зүүн жигүүрээс<span></td><td><span style="font-weight:bold;">Үйлдэл</span></td></tr>'; 
+						    foreach ($this->onoolt as $key => $val) 
+						    {
+						    		if($val['davaa_num'] == $ans)
+						    		{
+							    		foreach ($this->bukh as $key => $bukh) 
+							    		{
+							            	if($bukh['id'] == $val['bukh1_id'])
+							            	{ 
+							            		$bukh1_lname = $bukh['lname'];
+							            		$bukh1_fname = $bukh['fname'];
+							        		}
+							            	if($bukh['id'] == $val['bukh2_id'])
+							            	{ 
+							            		$bukh2_lname = $bukh['lname'];
+							            		$bukh2_fname = $bukh['fname'];
+							        		}				        		
+							        	}
+							        	//////////////////////////////////////////////////////
+							        	if($val['bukh1_id'] == 0)
+							        	{
+							        			echo '<tr><td>'.$glname.' '.$gfname.'</td><td>'.$bukh2_lname.' '.$bukh2_fname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';
+							        	}
+							        	else
+							        	{
+							        		if($val['bukh2_id'] == 0)
+							        		{
+							        			echo '<tr><td>'.$bukh1_lname.' '.$bukh1_fname.'</td><td>'.$glname.' '.$gfname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';				        			
+							        		}
+							        		else
+							        		{
+							        			echo '<tr><td>'.$bukh1_lname.' '.$bukh1_fname.'</td><td>'.$bukh2_lname.' '.$bukh2_fname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';
+							        		}
+							        	}
+							        	//////////////////////////////////////////////////////
+						        	}
+						    }
+						    echo '</table>';					
+						}
+					echo '<button id="bukhadd" class="btn btn-info btn-sm" onclick="start_davaanuud(this);" type="button"><span style="font-weight: bold" "="">барилдааны '.$ans.'-н давааг эхлүүлэх</span></button>';
+					echo '<div class = "dis10"></div>';
+				}	
+				else
+				{	
+					// Ганц бөх үлдсэн байна гэсэн үг өөрөөр хэлбэл түрүүлэх бөх ганцаарай үлдсэн байна.
+					if($num == 1 && $tmp == 0)
+					{
+						$ans = $this->code;
+						$bukh_lname = 0;
+						$bukh_fname = 0;
+						$glname = "Гоц";
+						$gfname = "мөргөсөн";
+ 						for($i = 1; $i < $ans; $i++)
+						{
+							echo '<div style="text-align:center,color:blue,font-weight:bold">Үндэсний бөхийн барилдааны '.$i.'-н даваа</div>';
+							echo '<table  class="table table-bordered">';
+
+							echo '<table  class="table table-bordered">';
+							echo '<tr class = "success"><td><span style="font-weight:bold;">Баруун жигүүрээс<span></td><td><span style="font-weight:bold;">Мэх</span></td><td><span style="font-weight:bold;">Зүүн жигүүрээс<span></td></tr>';
+							foreach ($this->onoolt as $key => $val) {
+					    		foreach ($this->bukh as $key => $bukh) {
+					            	if($bukh['id'] == $val['bukh1_id'])
+					            	{ 
+					            		$bukh1_lname = $bukh['lname'];
+					            		$bukh1_fname = $bukh['fname'];
+					        		}
+					            	if($bukh['id'] == $val['bukh2_id'])
+					            	{ 
+					            		$bukh2_lname = $bukh['lname'];
+					            		$bukh2_fname = $bukh['fname'];
+					        		}				        		
+					        	}
+					        	if($val['davaa_num'] == $i)
+					        	{
+					        		if($val['davsanbukh_id'] == $val['bukh1_id'])
+					        		{
+					        			if(($i + 1) == $ans)
+					        			{
+					        				$bukh_lname = $bukh1_lname;
+					        				$bukh_fname = $bukh1_fname;
+					        			}
+					        			if($val['bukh1_id'] == 0)
+					        			{
+					        					echo '<tr ><td class = "success">'.$glname.' '.$gfname.' </td><td> '.$val['mekh'].'</td><td class = "danger">'.$bukh2_lname.' '.$bukh2_fname.'</td></tr>';	
+					        			}
+					        			else
+					        			{
+					        				if($val['bukh2_id'] == 0)
+					        				{
+					        					echo '<tr ><td class = "success">'.$bukh1_lname.' '.$bukh1_fname.' </td><td> '.$val['mekh'].'</td><td class = "danger">'.$glname.' '.$gfname.'</td></tr>';       
+					        				}
+					        				else
+					        				{
+					        					echo '<tr ><td class = "success">'.$bukh1_lname.' '.$bukh1_fname.' </td><td> '.$val['mekh'].'</td><td class = "danger">'.$bukh2_lname.' '.$bukh2_fname.'</td></tr>';					        
+					        				}
+					        			}
+					        		}
+					        		else
+					        		{
+					        			if(($i + 1) == $ans)
+					        			{
+					        				$bukh_lname = $bukh2_lname;
+					        				$bukh_fname = $bukh2_fname;
+					        			}					        			
+					        			if($val['bukh1_id'] == 0)
+					        			{
+					        					echo '<tr ><td class = "danger">'.$glname.' '.$gfname.' </td><td> '.$val['mekh'].'</td><td class = "success">'.$bukh2_lname.' '.$bukh2_fname.'</td></tr>';	
+					        			}
+					        			else
+					        			{
+					        				if($val['bukh2_id'] == 0)
+					        				{
+					        					echo '<tr ><td class = "danger">'.$bukh1_lname.' '.$bukh1_fname.' </td><td> '.$val['mekh'].'</td><td class = "success">'.$glname.' '.$gfname.'</td></tr>';       
+					        				}
+					        				else
+					        				{
+					        					echo '<tr ><td class = "danger">'.$bukh1_lname.' '.$bukh1_fname.' </td><td> '.$val['mekh'].'</td><td class = "success">'.$bukh2_lname.' '.$bukh2_fname.'</td></tr>';					        
+					        				}
+					        			}	
+					        		}	
+					        	}	        		
+				    		}							
+							echo '</table>';
+						}		
+						echo '<p>Хүчит бөхийн барилдаанд '.$bukh_lname.' '.$bukh_fname.' түрүүлж наадамчин олноо баясгаллаа.</p>';
+						echo '<button id="bukhadd" class="btn btn-info btn-sm" onclick="finish_barildaan(this);" type="button"><span style="font-weight: bold">Барилдааныг амжилттай зохион байгуулж дууслаа мэдээллийг хадгалах</span></button>';
+						echo '<div class = "dis10"></div>';
+					}	
+					else
+					{
+						if($num == 1)
+						{
+									//Гоц мөргөсөн байна
+									$ans = $this -> code;
+									$bukh2 = 0; 
+									$mekhg = "барилдаагүй";
+									$hehe = new Model_DbTable_Onoolt();
+									$hehe -> insert(array('bukh1_id' => $bukhsp_id,
+										'bukh2_id' => $bukh2,
+										'barildaan_id' => $this->dugaar,
+										'davaa_num' => $ans,
+										'mekh'=> $mekhg,
+										'davsanbukh_id' => $bukhsp_id,
+										'bukh1_lname' => $bukhsp_lname,
+										'bukh1_fname' => $bukhsp_fname
+									));
+									?>
+									<script>
+										window.location.reload(this);
+									</script>
+									<?php
+						}
+						else
+						{
+							/* Оноолт сонгох хэсгийн эхлэл */
+							$tmp = 1;
+							echo '<div class = "barildaan_body">
+
+							<div class="barildaan_search1">
+								<div class="barildaan_search1_1">
+									<span>
+										<input placeholder="Баруун жигүүрээс" type="text" utga = "" id = "bukh-search1" class = "form-control" value=""></input>
+									</span>
+								</div>
+								<div class="barildaan_search1_2">
+									<span>
+										<input placeholder="Зүүн жигүүрээс" type="text" utga = "" id = "bukh-search2" class = "form-control" value=""></input>
+									</span>
+								</div>
+							</div>
+						
+							<div class="barildaan_control1">
+								<span>
+									<button id = "bukhadd" class="btn btn-info btn-sm" onclick="onoolt_davaanuud(this);" type="button"><span style="font-weight: bold" ">барилдуулъя</span></button>
+								</span>
+							</div>
+							</div>';				
+							echo '<div id = "search-result1"></div>';	
+							/* Оноолт сонгох хэсгийн төгсгөл */
+
+							/* Бөх барилдаанд сонгох эхлэл 2-оос дээших давааны */
+							
+							$cnt = 0;
+							foreach ($this->onoolt as $key => $value) {
+								if($value['davaa_num'] == $ans) $cnt++;
+							}
+							if($cnt > 0)
+							{
+								echo '<table  class="table table-bordered">';
+								echo '<tr class = "success"><td><span style="font-weight:bold;">Баруун жигүүрээс<span></td><td><span style="font-weight:bold;">Зүүн жигүүрээс<span></td><td><span style="font-weight:bold;">Үйлдэл</span></td></tr>'; 
+								$glname = "Гоц";
+								$gfname = "мөргөсөн";
+							    foreach ($this->onoolt as $key => $val) {
+							    		if($val['davaa_num'] == $ans)
+							    		{
+								    		foreach ($this->bukh as $key => $bukh) 
+								    		{
+								            	if($bukh['id'] == $val['bukh1_id'])
+								            	{ 
+								            		$bukh1_lname = $bukh['lname'];
+								            		$bukh1_fname = $bukh['fname'];
+								        		}
+								            	if($bukh['id'] == $val['bukh2_id'])
+								            	{ 
+								            		$bukh2_lname = $bukh['lname'];
+								            		$bukh2_fname = $bukh['fname'];
+								        		}				        		
+								        	}
+											////////////////////////////////////        	
+								        	if($val['bukh1_id'] == 0)
+								        	{
+								        			echo '<tr><td>'.$glname.' '.$gfname.'</td><td>'.$bukh2_lname.' '.$bukh2_fname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';
+								        	}
+								        	else
+								        	{
+								        		if($val['bukh2_id'] == 0)
+								        		{
+								        			echo '<tr><td>'.$bukh1_lname.' '.$bukh1_fname.'</td><td>'.$glname.' '.$gfname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';				        			
+								        		}
+								        		else
+								        		{
+								        			echo '<tr><td>'.$bukh1_lname.' '.$bukh1_fname.'</td><td>'.$bukh2_lname.' '.$bukh2_fname.'</td><td><a href="'.$this -> baseUrl().'/barildaan/remove_onoolt/id/'.$val['id'].'"><span class="glyphicon glyphicon-remove" style="font-weight:bold,color:red;"></span></a></td></tr>';
+								        		}
+								        	}
+								        	////////////////////////////////////////////
+							        	}
+							    }
+							    echo '</table>';					
+							}
+							echo '<table  class="table table-bordered">';
+							echo '<tr class = "success"><td><span style="font-weight:bold;">Бөхийн барилдааны '.$dawaa_id.' даваанд барилдах бөхчүүд.<span></td></tr>';
+							$dp = 0;
+							foreach ($this->bukh as $key => $bukh) {
+								$tp = 0;
+								foreach ($this->onoolt as $key => $value) 
+								{
+											if($value['davaa_num'] == ($ans - 1))
+											{
+												if($value['davsanbukh_id'] == $bukh['id'])
+													$tp++;
+								    		}
+								    		if($value['davaa_num'] == ($ans))
+											{
+												if($value['bukh1_id'] == $bukh['id'] || $value['bukh2_id'] == $bukh['id'])
+													$tp++;
+								    		}
+								}
+								if($tp == 1)
+								{
+								    		$fname = $bukh['fname'];
+								    		$lname = $bukh['lname'];
+								    		$bukhuri = $bukh['uri'];
+											echo '<tr><td>
+								                <img class="img-thumbnail" src ="'.$this -> baseUrl().'/'.$bukhuri.'" height="50px" width="50px" alt="oldsongui!"></img>
+								                &nbsp&nbsp&nbsp&nbsp
+								                <span style = "color:#428bca"; >'.$lname.'</span>&nbsp&nbsp
+								                <a href="'.$this -> baseUrl().'/bukhchuud/page/id/'.$value['davsanbukh_id'].'"><span style = "color:#428bca"; >'.$fname.'</span></a>&nbsp&nbsp
+								            </td></tr>';
+								            $dp++;
+								}
+							}
+							///////////////////////////////////////////////////
+						}
+					}
+					echo '</table>';
+				}
+				/* Бөх барилдаанд сонгох төгсгөл 2-оос дээших давааны */
+			}
+		}
+		//ene dawaanii barildaaniig hudluh yostoi
+		else
+		{
+					//hediin davaa ehelsen iig olno
+					foreach ($this->barildaan as $key => $value) 
+					{
+						$davaa = $value['davaa_id'];
+					}
+					$count = 0;
+					$glname = "Гоц";
+					$gfname = "мөргөсөн";
+					$onoolts = new Model_DbTable_Onoolt();
+        			$onoolt_davaa = $onoolts -> fetchAll($onoolts -> select() -> where('barildaan_id = '. $this -> dugaar.' AND davaa_num = '.$davaa));
+        			echo '<h4>Хүчит бөхийн барилдааны '.$davaa.' - н даваанд барилдаж байгаа бөхчүүд</h4>';
+					echo '<table  class="table table-hover">';
+					echo '<tr class = "success"><td><span style="font-weight:bold;">Баруун жигүүрээс<span></td><td><span style="font-weight:bold;">Мэх</span></td><td><span style="font-weight:bold;">Зүүн жигүүрээс<span></td></tr>';
+				    foreach ($onoolt_davaa as $key => $val) {
+				    		foreach ($this->bukh as $key => $bukh) {
+				            	if($bukh['id'] == $val['bukh1_id'])
+				            	{ 
+				            		$bukh1_lname = $bukh['lname'];
+				            		$bukh1_fname = $bukh['fname'];
+				        		}
+				            	if($bukh['id'] == $val['bukh2_id'])
+				            	{ 
+				            		$bukh2_lname = $bukh['lname'];
+				            		$bukh2_fname = $bukh['fname'];
+				        		}				        		
+				        	}
+				        	$num = $val['bukh1_id']*1000000 + $val['bukh2_id'];
+				        	if($val['davsanbukh_id'] == 0)
+				        	{
+				        		echo '<tr ><td> <div id = '.$num.' class = "bukh_result100">'.$bukh1_lname.' '.$bukh1_fname.'</div> </td><td> <div id = '.$num.' class = "bukh_result100">'.$val['mekh'].'</div></td><td><div id = '.$num.' class = "bukh_result100">'.$bukh2_lname.' '.$bukh2_fname.'</div></td></tr>';
+				        		$count++;
+				        	}
+				        	else
+				        	{
+				        		if($val['davsanbukh_id'] == $val['bukh1_id'])
+				        		{
+				        			if($val['bukh1_id'] == 0)
+				        			{
+				        					echo '<tr ><td class = "success"> <div id = '.$num.' class = "bukh_result100">'.$glname.' '.$gfname.'</div> </td><td> <div id = '.$num.' class = "bukh_result100">'.$val['mekh'].'</div></td><td class = "danger"><div id = '.$num.' class = "bukh_result100">'.$bukh2_lname.' '.$bukh2_fname.'</div></td></tr>';	
+				        			}
+				        			else
+				        			{
+				        				if($val['bukh2_id'] == 0)
+				        				{
+				        					echo '<tr ><td class = "success"> <div id = '.$num.' class = "bukh_result100">'.$bukh1_lname.' '.$bukh1_fname.'</div> </td><td> <div id = '.$num.' class = "bukh_result100">'.$val['mekh'].'</div></td><td class = "danger"><div id = '.$num.' class = "bukh_result100">'.$glname.' '.$gfname.'</div></td></tr>';	
+				        				}
+				        				else
+				        				{
+				        					echo '<tr ><td class = "success"> <div id = '.$num.' class = "bukh_result100">'.$bukh1_lname.' '.$bukh1_fname.'</div> </td><td> <div id = '.$num.' class = "bukh_result100">'.$val['mekh'].'</div></td><td class = "danger"><div id = '.$num.' class = "bukh_result100">'.$bukh2_lname.' '.$bukh2_fname.'</div></td></tr>';	
+				        				}
+				        			}
+	
+				        		}
+				        		else
+				        		{
+				        			if($val['bukh1_id'] == 0)
+				        			{
+				        					echo '<tr ><td class = "danger"> <div id = '.$num.' class = "bukh_result100">'.$glname.' '.$gfname.'</div> </td><td> <div id = '.$num.' class = "bukh_result100">'.$val['mekh'].'</div></td><td class = "success"><div id = '.$num.' class = "bukh_result100">'.$bukh2_lname.' '.$bukh2_fname.'</div></td></tr>';	
+				        			}
+				        			else
+				        			{
+				        				if($val['bukh2_id'] == 0)
+				        				{
+				        					echo '<tr ><td class = "danger"> <div id = '.$num.' class = "bukh_result100">'.$bukh1_lname.' '.$bukh1_fname.'</div> </td><td> <div id = '.$num.' class = "bukh_result100">'.$val['mekh'].'</div></td><td class = "success"><div id = '.$num.' class = "bukh_result100">'.$glname.' '.$gfname.'</div></td></tr>';	
+				        				}
+				        				else
+				        				{
+				        					echo '<tr ><td class = "danger"> <div id = '.$num.' class = "bukh_result100">'.$bukh1_lname.' '.$bukh1_fname.'</div> </td><td> <div id = '.$num.' class = "bukh_result100">'.$val['mekh'].'</div></td><td class = "success"><div id = '.$num.' class = "bukh_result100">'.$bukh2_lname.' '.$bukh2_fname.'</div></td></tr>';	
+				        				}
+				        			}
+				        		}		        		
+				        	}
+				    }
+				    echo '</table>';		
+				    if($count == 0)
+				    {
+				    	echo '<button id = "next_davaa" class="btn btn-info btn-xs"><span style="font-weight: bold"> Дараагийн давааг эхлүүлэх </span></button>';
+				    }
+		}
+	}
+?>
+
+
+<!--
+<?php
+
+    // create the session namespace
+    $session = new Zend_Session_Namespace('barildaan');
+
+    	// write a value to the session
+    	$bukhs = new Model_DbTable_Bukh();
+    	$bukh = $bukhs -> fetchAll($bukhs -> select());
+        $ret = array();
+        
+        $this->session->name['lname'];
+		$this->session->name['fname'];
+
+        foreach ($bukh as $key => $value) {
+            
+            $ret[] = array('lname' => $value['lname'],'fname' => $value['fname']); 
+        }
+
+         $this->session->name = $ret;
+         /*foreach($session as $val)
+         {
+         	echo $val->name->lname;
+         	echo $val->name->fname;
+         }*/
+    // output the value
+    
+    /*
+    echo sprintf('Your country is %s', $session->lname);
+	echo sprintf('Your country is %s', $session->fname);	
+	*/
+
+    // checking if a value is set
+    if (isset($session->country)) {
+        // value is set in session
+    }
+?>-->
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-search").keyup(function(){
+			var text = $(this).val();
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajax',
+	            async: true,
+	            data: { text: text },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick(this);"><td>'+res[i].id+'</td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-search1").keyup(function(){
+			var text = $(this).val();
+			var barildaan = <?php echo $this->dugaar; ?>;
+			var davaa = <?php echo $this->code; ?>;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxbukh1',
+	            async: true,
+	            data: { text: text, barildaan: barildaan, davaa: davaa },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick1(this);"><td>'+res[i].id+'</td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result1").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh-search2").keyup(function(){
+			var text = $(this).val();
+			var barildaan = <?php echo $this->dugaar; ?>;
+			var davaa = <?php echo $this->code; ?>;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxbukh2',
+	            async: true,
+	            data: { text: text, barildaan: barildaan, davaa: davaa },
+	            success: function(res) {
+	           		len = res.length;
+	                content = '<table id = "mytable" class="table table-hover">';
+	                if(len == 0)
+	                {
+	                	content +='<p> олдсонгүй!!! </p>';
+	                }
+	                for (i = 0; i < len; i++) {
+	                	content += '<tr onclick="handleClick2(this);"><td>'+res[i].id+'</td><td>'+res[i].lname+'</td><td>'+res[i].fname+'</td></tr>';
+	                }
+	                content += '</table>';
+	                $("#search-result1").html(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+
+</script>
+
+<script type="text/javascript">
+	function handleClick(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxtable',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-search").data("bukhdugaar", res[0].id);
+	                $("#bukh-search").val(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+	function handleClick1(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxtable1',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-search1").data("bukhdugaar", res[0].id);
+	            	$("#bukh-search1").data("bukhlname", res[0].lname);
+	            	$("#bukh-search1").data("bukhfname", res[0].fname);
+	                $("#bukh-search1").val(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+
+<script type="text/javascript">
+	function handleClick2(x)
+	{
+			var row = x.rowIndex;
+			var table = document.getElementById('mytable');
+			var id = table.rows[row].cells[0].innerHTML;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxtable2',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	content = "";
+	            	content += res[0].lname;
+	            	content += " ";
+	            	content += res[0].fname;
+	            	$("#bukh-search2").data("bukhdugaar", res[0].id);
+	            	$("#bukh-search2").data("bukhlname", res[0].lname);
+	            	$("#bukh-search2").data("bukhfname", res[0].fname);
+	                $("#bukh-search2").val(content);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+	}
+</script>
+
+<script type="text/javascript">
+	function bukhadd(x)
+	{
+			var id = $("#bukh-search").data("bukhdugaar");
+			var barildaan = <?php echo $this->dugaar; ?>;
+			//add burtgel ruu tuhain bukhiiig
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxbukhadd',
+	            async: false,
+	            data: { id: id, barildaan: barildaan },
+	            success: function(res) {
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+
+	}
+</script>
+<script type="text/javascript">
+	function pagereload(x)
+	{
+		var id = <?php echo $this->dugaar; ?>;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxbarildaanstart',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<script type="text/javascript">
+	function onoolt_davaanuud(x)
+	{
+		var id = <?php echo $this->dugaar; ?>;
+		var barildaan = <?php echo $this->dugaar; ?>;
+		var num1 = $("#bukh-search1").data("bukhdugaar");
+		var num2 = $("#bukh-search2").data("bukhdugaar");
+		var num1_lname = $("#bukh-search1").data("bukhlname");
+		var num2_lname = $("#bukh-search2").data("bukhlname");
+		var num1_fname = $("#bukh-search1").data("bukhfname");
+		var num2_fname = $("#bukh-search2").data("bukhfname");
+
+		var davaa = <?php echo $this->code; ?>;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxdavaanuudonoolt',
+	            async: false,
+	            data: { num1:num1,num2:num2,barildaan:barildaan,davaa: davaa, bukh1_lname: num1_lname,bukh1_fname: num1_fname,bukh2_lname: num2_lname,bukh2_fname: num2_fname },
+	            success: function(res) {          	
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+
+<script type="text/javascript">
+	function onoolt_davaa_neg(x)
+	{
+		var id = <?php echo $this->dugaar; ?>;
+		var barildaan = <?php echo $this->dugaar; ?>;
+		var num1 = $("#bukh-search1").data("bukhdugaar");
+		var num2 = $("#bukh-search2").data("bukhdugaar");
+		var num1_lname = $("#bukh-search1").data("bukhlname");
+		var num2_lname = $("#bukh-search2").data("bukhlname");
+		var num1_fname = $("#bukh-search1").data("bukhfname");
+		var num2_fname = $("#bukh-search2").data("bukhfname");
+
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxdavaanegonoolt',
+	            async: false,
+	            data: { num1:num1,num2:num2,barildaan:barildaan,bukh1_lname: num1_lname,bukh1_fname: num1_fname,bukh2_lname: num2_lname,bukh2_fname: num2_fname },
+	            success: function(res) {          	
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<script type="text/javascript">
+	function start_davaa_neg(x)
+	{
+		var id = <?php echo $this->dugaar; ?>;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxstartdavaaneg',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {          	
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<script type="text/javascript">
+	function start_davaanuud(x)
+	{
+		var id = <?php echo $this->dugaar; ?>;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxstartdavaanuud',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {          	
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<script type="text/javascript">
+	function finish_barildaan(x)
+	{
+		var id = <?php echo $this->dugaar; ?>;
+		$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxfinishbarildaan',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {          	
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    });
+	}
+</script>
+
+<div id = "bukh_result" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Үндэсний бөхийн барилдааныг хөтлөх хэсэг</h4>
+      </div>
+      <div class = "bukh_border">
+	      <div class="modal-body1">
+	      		<div class = "bukh_info">
+	      			<div class = "bukh1_info">
+	      				<div id = "bukh1">
+	      					<div id = "bukh11"></div>
+		      				<div id = "bukh1_chooser">
+		      					<button class="btn btn-info btn-xs"><span style="font-weight: bold">Давсан бөх сонгох</span></button>
+		      				</div>
+	      				</div>
+	      				<div class = "mekh">
+	      					<p style="font-weight:bold">Мэх</p><textarea id = "textarea" rows="2" cols="50"></textarea>
+	      				</div>
+	      			</div>
+	      			<div class="bukh2_info">
+	      				<div id = "bukh2">
+	      					<div id = "bukh22"></div>
+		      				<div id = "bukh2_chooser">
+		      					<button class="btn btn-info btn-xs"><span style="font-weight: bold">Давсан бөх сонгох</span></button>
+		      				</div>
+	      				</div>
+	      			</div>
+	      		</div>
+	      </div>	
+	      Давсан бөхийн мэх
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Болих</button>
+	        <button id = "bukh_save" type="button" class="btn btn-primary">Хадгалах</button>
+	      </div>
+  	  </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh_save").click(function(){
+			var text = $("#textarea").val();
+			var id1 = $("#bukh1").data('bukh1_id');
+			var id2 = $("#bukh1").data('bukh2_id');
+			var davsanbukh_id = $("#bukh1").data('bukh_chooser');
+			var barildaan = <?php echo $this->dugaar; ?>;
+			var davaa = <?php echo $this->code; ?>;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxbukhresultfinish',
+	            async: false,
+	            data: { id1: id1, id2: id2, text: text, davaa: davaa, barildaan: barildaan, davsanbukh_id: davsanbukh_id },
+	            success: function(res) {
+	               	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});
+		})
+	});
+</script>
+
+<!-------------------- Бөхийн барилдааны дүн оруулах хэсэгийн эхлэл ------------------------>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".bukh_result100").click(function(){
+			var id = this.id;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxbukhresult',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	               	$("#bukh1").data("bukh1_id", res[0].bukh1_id);
+	               	$("#bukh1").data("bukh2_id", res[0].bukh2_id);
+	               	content = "";
+	               	content += '<p style="font-weight:bold"> Баруун жигүүрээс </p><p>'+res[0].bukh1_lname+' ' +res[0].bukh1_fname+'</p>';
+	               	$("#bukh11").html(content);
+	               	content = "";
+	               	content += '<p style="font-weight:bold">Зүүн жигүүрээс </p><p> '+res[0].bukh2_lname+' ' +res[0].bukh2_fname+'</p>';
+	               	$("#bukh22").html(content);
+	                $("#bukh_result").modal('show');
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});	
+		})
+	});
+</script>
+
+<!-------------------- Бөхийн барилдааны дүн оруулах хэсэгийн төгсгөл ------------------------>
+
+<!-------------------- Давсан бөх сонгох хэсэгийн эхлэл ------------------------>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh1_chooser").click(function(){
+			var id = $("#bukh1").data('bukh1_id');
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxbukh1chooser',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	               	content = "";
+					$("#bukh1").data("bukh_chooser", res[0].id);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});	
+		})
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#bukh2_chooser").click(function(){
+			var id = $("#bukh1").data('bukh2_id');
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxbukh2chooser',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	               	content = "";
+					$("#bukh1").data("bukh_chooser", res[0].id);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});	
+		})
+	});
+</script>
+
+<!-------------------- Давсан бөх сонгох хэсэгийн төгсгөл ------------------------>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#next_davaa").click(function(){
+			var id = <?php echo $this->dugaar; ?>;
+			$.ajax({
+	            type: 'POST',
+	            dataType: 'json',
+	            url: baseUrl+'/barildaan/ajaxnextdavaa',
+	            async: false,
+	            data: { id: id },
+	            success: function(res) {
+	            	window.location.reload(this);
+	            },
+	            error: function() {
+	            	alert('no');
+	            }
+	    	});				
+		})
+	});
+</script>

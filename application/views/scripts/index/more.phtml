@@ -1,0 +1,33 @@
+
+<?php
+    	foreach ($this -> news as $val) {
+    		$title = $val['title'];
+    		$content = $val['content'];
+    		$uid = $val['uid'];
+    		$id = $val['id'];
+    		$date = $val['date'];
+    	}
+    ?> 
+
+<?php
+                $convert = "";
+                $len = strlen($content); 
+                for($i=0; $i < $len; $i++) {
+                    if($content[$i] == '&' and $content[$i+1] == 'q' and $content[$i+2] == 'u' and $content[$i+3] == 'o' and $content[$i+4] == 't' and $content[$i+5] == ';') 
+                    {
+                        $i=$i+5; $convert.="\"";
+                    }
+                    else 
+                    {
+                        $convert.=$content[$i];
+                    }
+                }
+                $content = $convert;
+    ?>
+    <div class = "box123">
+		<?php echo $content; ?>
+
+        <!--hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+        hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh-->
+	
+    </div>
